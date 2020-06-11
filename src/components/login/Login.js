@@ -1,5 +1,6 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { Component } from "react";
+import PropTypes from 'prop-types';
+import { withStyles } from "@material-ui/core/styles";
 import {
   Button,
   Container,
@@ -11,7 +12,7 @@ import {
 
 import logo from "../../assets/images/Logo.svg";
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   paper: {
     paddingTop: theme.spacing(10),
     paddingBottom: theme.spacing(6),
@@ -47,12 +48,13 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "500px",
     fontSize: "16px",
   },
-}));
+});
 
-export default function Login() {
-  const classes = useStyles();
-  return (
-    <Container component="main" maxWidth="xs">
+class Login extends Component {
+  render() {
+    const { classes } = this.props;
+    return (
+      <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <img src={logo} alt="Logo" />
@@ -92,5 +94,12 @@ export default function Login() {
         </form>
       </div>
     </Container>
-  );
+    )
+  }
 }
+
+Login.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Login);
