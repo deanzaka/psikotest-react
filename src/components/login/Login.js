@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { login } from "../../actions/loginActions";
 import { withStyles } from "@material-ui/core/styles";
 import {
   Button,
@@ -12,7 +14,7 @@ import {
 
 import logo from "../../assets/images/Logo.svg";
 
-const styles = theme => ({
+const styles = (theme) => ({
   paper: {
     paddingTop: theme.spacing(10),
     paddingBottom: theme.spacing(6),
@@ -51,55 +53,103 @@ const styles = theme => ({
 });
 
 class Login extends Component {
+  state = {
+    email: "",
+    password: "",
+    errors: "",
+  };
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    const { email, password } = this.state;
+
+    if (email === "") {
+      this.setState({
+        errors: {
+          email: "Email is required",
+        },
+      });
+      return;
+    }
+    if (password === "") {
+      this.setState({
+        errors: {
+          password: "Password is required",
+        },
+      });
+      return;
+    }
+
+    this.props.login(email, password);
+
+    this.setState({
+      email: "",
+      password: "",
+      errors: {},
+    });
+
+    this.props.history.push("/");
+  };
   render() {
     const { classes } = this.props;
+    const { email, password, errors } = this.state;
     return (
       <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <img src={logo} alt="Logo" />
-        <Typography className={classes.login}>Masuk</Typography>
-        <Divider className={classes.divider} variant="middle" />
-        <form className={classes.form} noValidate>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Alamat email"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Kata sandi"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="secondary"
-            className={classes.submit}
-          >
-            Masuk
-          </Button>
-          <Typography align="right">Lupa kata sandi?</Typography>
-        </form>
-      </div>
-    </Container>
-    )
+        <CssBaseline />
+        <div className={classes.paper}>
+          <img src={logo} alt="Logo" />
+          <Typography className={classes.login}>Masuk</Typography>
+          <Divider className={classes.divider} variant="middle" />
+          <form className={classes.form} onSubmit={this.onSubmit} noValidate>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Alamat email"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={email}
+              onChange={this.onChange}
+              error={typeof errors.email != "undefined"}
+              helperText={errors.email}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Kata sandi"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={this.onChange}
+              error={typeof errors.password != "undefined"}
+              helperText={errors.password}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="secondary"
+              className={classes.submit}
+            >
+              Masuk
+            </Button>
+            <Typography align="right">Lupa kata sandi?</Typography>
+          </form>
+        </div>
+      </Container>
+    );
   }
 }
 
 Login.propTypes = {
   classes: PropTypes.object.isRequired,
+  login: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(Login);
+export default withStyles(styles)(connect(null, { login })(Login));
