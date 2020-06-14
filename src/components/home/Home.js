@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Header from "../header/Header";
 
 class Home extends Component {
   render() {
     return (
-      <div>Hello {this.props.user ? this.props.user.name : "stranger"}</div>
+      <div>
+        <Header></Header>
+        Hello {this.props.user ? this.props.user.name : "stranger"}
+      </div>
     );
   }
 }

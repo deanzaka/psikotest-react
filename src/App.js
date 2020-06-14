@@ -38,6 +38,8 @@ const theme = createMuiTheme({
   },
 });
 
+console.log(theme);
+
 function App() {
   return (
     <Provider store={store}>
