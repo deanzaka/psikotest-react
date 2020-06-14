@@ -49,6 +49,7 @@ function App() {
             <Container
               maxWidth="xs"
               style={{
+                padding: 0,
                 backgroundColor: "#FFFFFF",
                 height: "100vh",
               }}

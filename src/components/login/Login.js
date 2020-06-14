@@ -95,7 +95,13 @@ class Login extends Component {
     const { classes } = this.props;
     const { email, password, errors } = this.state;
     return (
-      <Container component="main" maxWidth="xs">
+      <Container
+        component="main"
+        maxWidth="xs"
+        style={{
+          padding: 32,
+        }}
+      >
         <CssBaseline />
         <div className={classes.paper}>
           <img src={logo} alt="Logo" />
