@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import { connect } from "react-redux";
-import { login } from "../../actions/loginActions";
+import { loginAction } from "../../actions/loginActions";
 import { withStyles } from "@material-ui/core/styles";
 import {
   Button,
@@ -13,6 +15,10 @@ import {
 } from "@material-ui/core";
 
 import logo from "../../assets/images/Logo.svg";
+
+const Alert = (props) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
 
 const styles = (theme) => ({
   paper: {
@@ -57,9 +63,21 @@ class Login extends Component {
     email: "",
     password: "",
     errors: "",
+    open: false,
   };
+
+  onClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    this.setState({
+      open: false,
+    });
+  };
+
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
-  onSubmit = (e) => {
+  onSubmit = async (e) => {
     e.preventDefault();
 
     const { email, password } = this.state;
@@ -67,7 +85,7 @@ class Login extends Component {
     if (email === "") {
       this.setState({
         errors: {
-          email: "Email is required",
+          email: "Harap masukkan email",
         },
       });
       return;
@@ -75,25 +93,32 @@ class Login extends Component {
     if (password === "") {
       this.setState({
         errors: {
-          password: "Password is required",
+          password: "Harap masukkan password",
         },
       });
       return;
     }
 
-    this.props.login(email, password);
+    const err = await this.props.loginAction(email, password);
+    if (err !== null) {
+      this.setState({
+        errors: {},
+        open: true,
+      });
+    } else {
+      this.setState({
+        email: "",
+        password: "",
+        errors: {},
+      });
 
-    this.setState({
-      email: "",
-      password: "",
-      errors: {},
-    });
-
-    this.props.history.push("/");
+      this.props.history.push("/");
+    }
   };
+
   render() {
     const { classes } = this.props;
-    const { email, password, errors } = this.state;
+    const { email, password, errors, open } = this.state;
     return (
       <Container
         component="main"
@@ -148,6 +173,11 @@ class Login extends Component {
             <Typography align="right">Lupa kata sandi?</Typography>
           </form>
         </div>
+        <Snackbar open={open} autoHideDuration={6000} onClose={this.onClose}>
+          <Alert onClose={this.onClose} severity="error">
+            Email atau password salah
+          </Alert>
+        </Snackbar>
       </Container>
     );
   }
@@ -155,7 +185,7 @@ class Login extends Component {
 
 Login.propTypes = {
   classes: PropTypes.object.isRequired,
-  login: PropTypes.func.isRequired,
+  loginAction: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(connect(null, { login })(Login));
+export default withStyles(styles)(connect(null, { loginAction })(Login));
