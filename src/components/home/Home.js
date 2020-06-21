@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import AppHeader from "../appHeader/AppHeader";
+import AppHeader from "../header/Header";
 
 class Home extends Component {
   render() {

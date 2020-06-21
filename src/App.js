@@ -40,7 +40,7 @@ const theme = createMuiTheme({
 
 console.log(theme);
 
-function App() {
+const App = () => {
   return (
     <Provider store={store}>
       <Router>
@@ -64,6 +64,6 @@ function App() {
       </Router>
     </Provider>
   );
-}
+};
 
 export default App;

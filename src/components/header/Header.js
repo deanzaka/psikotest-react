@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AppHeader = (props) => {
+const Header = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -154,4 +154,4 @@ const AppHeader = (props) => {
   );
 };
 
-export default withRouter(AppHeader);
+export default withRouter(Header);
