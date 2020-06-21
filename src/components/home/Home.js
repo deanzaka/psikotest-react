@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Header from "../header/Header";
+import AppHeader from "../appHeader/AppHeader";
 
 class Home extends Component {
   render() {
     return (
       <div>
-        <Header></Header>
+        <AppHeader></AppHeader>
         Hello {this.props.user ? this.props.user.name : "stranger"}
       </div>
     );
