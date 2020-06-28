@@ -117,7 +117,11 @@ class Home extends Component {
           <Grid item xs={12}>
             <Paper className={classes.todoHead}>Hal yang harus dilakukan</Paper>
             <Paper className={classes.todoBody}>
-              <Typography paragraph="true" fontWeightBold>
+              <Typography
+                paragraph="true"
+                fontWeightBold
+                onClick={() => this.props.history.push("/profile")}
+              >
                 Mengisi identitas pribadi
               </Typography>
               <Typography paragraph="true" fontWeightBold>

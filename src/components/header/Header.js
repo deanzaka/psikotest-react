@@ -93,7 +93,7 @@ const Header = (props) => {
       <AppBar
         ref={anchorRef}
         position="relative"
-        color="default"
+        color="white"
         className={classes.box}
       >
         <Toolbar>

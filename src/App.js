@@ -9,6 +9,7 @@ import store from "./store";
 import Login from "./components/login/Login";
 import Home from "./components/home/Home";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import Profile from "./components/profile/Profile";
 
 const theme = createMuiTheme({
   palette: {
@@ -57,6 +58,11 @@ const App = () => {
             >
               <Switch>
                 <Route exact path="/login" component={Login} />
+                <ProtectedRoute
+                  exact
+                  path="/profile"
+                  component={Profile}
+                ></ProtectedRoute>
                 <ProtectedRoute
                   exact
                   path="/"
