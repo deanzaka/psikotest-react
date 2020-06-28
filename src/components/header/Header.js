@@ -136,9 +136,9 @@ const Header = (props) => {
                       id="menu-list-grow"
                       onKeyDown={onListKeyDown}
                     >
-                      <MenuItem className={classes.menuItem} onClick={onClose}>
+                      {/* <MenuItem className={classes.menuItem} onClick={onClose}>
                         Edit Profile
-                      </MenuItem>
+                      </MenuItem> */}
                       <MenuItem className={classes.menuItem} onClick={onLogout}>
                         Logout
                       </MenuItem>

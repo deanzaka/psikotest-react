@@ -7,9 +7,10 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import "./App.css";
 import store from "./store";
 import Login from "./components/login/Login";
-import Home from "./components/home/Home";
+// import Home from "./components/home/Home";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
-import Profile from "./components/profile/Profile";
+// import Profile from "./components/profile/Profile";
+import List from "./components/list/List";
 
 const theme = createMuiTheme({
   palette: {
@@ -60,6 +61,11 @@ const App = () => {
                 <Route exact path="/login" component={Login} />
                 <ProtectedRoute
                   exact
+                  path="/"
+                  component={List}
+                ></ProtectedRoute>
+                {/* <ProtectedRoute
+                  exact
                   path="/profile"
                   component={Profile}
                 ></ProtectedRoute>
@@ -67,7 +73,7 @@ const App = () => {
                   exact
                   path="/"
                   component={Home}
-                ></ProtectedRoute>
+                ></ProtectedRoute> */}
               </Switch>
             </Container>
           </div>
