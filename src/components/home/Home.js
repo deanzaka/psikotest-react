@@ -117,13 +117,15 @@ class Home extends Component {
           <Grid item xs={12}>
             <Paper className={classes.todoHead}>Hal yang harus dilakukan</Paper>
             <Paper className={classes.todoBody}>
-              <Typography paragraph="true">
+              <Typography paragraph="true" fontWeightBold>
                 Mengisi identitas pribadi
               </Typography>
-              <Typography paragraph="true">
+              <Typography paragraph="true" fontWeightBold>
                 Membaca informasi penggunaan
               </Typography>
-              <Typography paragraph="true">Mengizinkan akses kamera</Typography>
+              <Typography paragraph="true" fontWeightBold>
+                Mengizinkan akses kamera
+              </Typography>
             </Paper>
           </Grid>
         </Grid>
