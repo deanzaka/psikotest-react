@@ -32,7 +32,7 @@ const styles = (theme) => ({
   headerTitle: {
     paddingLeft: theme.spacing(3),
     fontSize: "24px",
-    fontWeight: theme.typography.fontWeightBold,
+    fontWeight: 500,
     lineHeight: 1.5,
   },
 });

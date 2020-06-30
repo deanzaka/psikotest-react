@@ -16,7 +16,7 @@ const styles = (theme) => ({
   greeting: {
     paddingTop: theme.spacing(3),
     fontSize: "24px",
-    fontWeight: theme.typography.fontWeightNormal,
+    fontWeight: 500,
     lineHeight: 1,
     color: theme.palette.primary.dark,
   },
@@ -119,15 +119,15 @@ class Home extends Component {
             <Paper className={classes.todoBody}>
               <Typography
                 paragraph="true"
-                fontWeightBold
+                fontWeight="500"
                 onClick={() => this.props.history.push("/profile")}
               >
                 Mengisi identitas pribadi
               </Typography>
-              <Typography paragraph="true" fontWeightBold>
+              <Typography paragraph="true" fontWeight="500">
                 Membaca informasi penggunaan
               </Typography>
-              <Typography paragraph="true" fontWeightBold>
+              <Typography paragraph="true" fontWeight="500">
                 Mengizinkan akses kamera
               </Typography>
             </Paper>
