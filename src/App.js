@@ -11,6 +11,7 @@ import Login from "./components/login/Login";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 // import Profile from "./components/profile/Profile";
 import List from "./components/list/List";
+import BigFiveIntro from "./components/bigFive/Intro";
 
 const theme = createMuiTheme({
   palette: {
@@ -54,7 +55,7 @@ const App = () => {
               style={{
                 padding: 0,
                 backgroundColor: "#FFFFFF",
-                height: "100vh",
+                minHeight: "100vh",
               }}
             >
               <Switch>
@@ -63,6 +64,11 @@ const App = () => {
                   exact
                   path="/"
                   component={List}
+                ></ProtectedRoute>
+                <ProtectedRoute
+                  exact
+                  path="/big-five/intro"
+                  component={BigFiveIntro}
                 ></ProtectedRoute>
                 {/* <ProtectedRoute
                   exact

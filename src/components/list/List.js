@@ -69,7 +69,7 @@ const styles = (theme) => ({
 
 class List extends Component {
   render() {
-    const { classes } = this.props;
+    const { classes, history } = this.props;
 
     return (
       <div>
@@ -78,7 +78,7 @@ class List extends Component {
         <Typography className={classes.title}>Kategori Psikotes</Typography>
         <Typography className={classes.testTitle}>Tes Kepribadian</Typography>
         <Card className={classes.card}>
-          <CardActionArea>
+          <CardActionArea onClick={() => history.push("/big-five/intro")}>
             <Grid container>
               <Grid item xs={3}>
                 <CardMedia

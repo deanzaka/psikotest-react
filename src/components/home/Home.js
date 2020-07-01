@@ -94,7 +94,7 @@ class Home extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, history } = this.props;
 
     return (
       <div>
@@ -120,7 +120,7 @@ class Home extends Component {
               <Typography
                 paragraph="true"
                 fontWeight="500"
-                onClick={() => this.props.history.push("/profile")}
+                onClick={() => history.push("/profile")}
               >
                 Mengisi identitas pribadi
               </Typography>

@@ -15,9 +15,6 @@ const styles = (theme) => ({
   root: {
     flexGrow: 1,
   },
-  main: {
-    padding: "0px",
-  },
   box: {
     height: theme.spacing(8),
     justifyContent: "center",
@@ -48,7 +45,7 @@ class Profile extends Component {
         }}
       >
         <CssBaseline />
-        <AppBar position="relative" color="white" className={classes.box}>
+        <AppBar position="relative" color="default" className={classes.box}>
           <Toolbar>
             <Grid container className={classes.headerGrid}>
               <Grid item xs={1}>
