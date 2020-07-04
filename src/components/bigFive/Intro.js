@@ -96,7 +96,7 @@ const defaultProps = {
 
 class BigFiveIntro extends Component {
   render() {
-    const { classes } = this.props;
+    const { classes, history } = this.props;
     return (
       <Container
         component="main"
@@ -109,7 +109,10 @@ class BigFiveIntro extends Component {
           <Toolbar>
             <Grid container className={classes.headerGrid}>
               <Grid item xs={1}>
-                <ArrowBack className={classes.headerIcon} />
+                <ArrowBack
+                  className={classes.headerIcon}
+                  onClick={() => history.goBack()}
+                />
               </Grid>
               <Grid item xs={11}>
                 <Typography className={classes.headerTitle}>
@@ -279,6 +282,7 @@ class BigFiveIntro extends Component {
             variant="contained"
             color="secondary"
             className={classes.start}
+            onClick={() => history.push("/big-five/form")}
           >
             Mulai
           </Button>

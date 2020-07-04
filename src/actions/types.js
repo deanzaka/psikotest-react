@@ -3,3 +3,8 @@ export const loginTypes = {
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
   LOGIN_FAILED: "LOGIN_FAILED",
 };
+
+export const bigFiveTypes = {
+  GET_TEMPLATE: "GET_TEMPLATE",
+  REQUEST_FAILED: "REQUEST_FAILED",
+};

@@ -3,7 +3,7 @@ import { loginTypes } from "../actions/types";
 let user = JSON.parse(localStorage.getItem("user"));
 const initialState = user ? { loggedIn: true, user } : {};
 
-export default function (state = initialState, action) {
+export default (state = initialState, action) => {
   switch (action.type) {
     case loginTypes.LOGIN_REQUEST:
       return { loggingIn: true, user: action.payload };
@@ -14,4 +14,4 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};

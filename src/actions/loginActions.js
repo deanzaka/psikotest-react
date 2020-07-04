@@ -2,23 +2,13 @@ import { loginService } from "../services/userService";
 import { loginTypes } from "./types";
 
 export const loginAction = (_id, password) => async (dispatch) => {
-  const request = (user) => {
-    return { type: loginTypes.LOGIN_REQUEST, payload: user };
-  };
-  const success = (user) => {
-    return { type: loginTypes.LOGIN_SUCCESS, payload: user };
-  };
-  const failure = (error) => {
-    return { type: loginTypes.LOGIN_FAILED, payload: error };
-  };
-
   try {
-    dispatch(request({ _id }));
+    dispatch({ type: loginTypes.LOGIN_REQUEST, payload: { _id } });
     const user = await loginService(_id, password);
-    dispatch(success(user));
+    dispatch({ type: loginTypes.LOGIN_SUCCESS, payload: user });
     return null;
   } catch (err) {
-    dispatch(failure(err.toString()));
+    dispatch({ type: loginTypes.LOGIN_FAILED, payload: err.toString() });
     return err;
   }
 };

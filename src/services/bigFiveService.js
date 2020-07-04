@@ -1,22 +1,17 @@
-export const loginService = async (_id, password) => {
+export const getTemplateService = async () => {
   const requestOptions = {
-    method: "POST",
+    method: "GET",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ _id, password }),
   };
 
   const res = await fetch(
-    `${process.env.REACT_APP_LOCAL_API_URL}/auth/login`,
+    `${process.env.REACT_APP_LOCAL_API_URL}/bigfive/template`,
     requestOptions
   );
-  const user = await handleResponse(res);
+  const template = await handleResponse(res);
 
-  localStorage.setItem("user", JSON.stringify(user));
-  return user;
-};
-
-export const logoutService = () => {
-  localStorage.removeItem("user");
+  localStorage.setItem("template", JSON.stringify(template));
+  return template;
 };
 
 const handleResponse = async (response) => {
@@ -24,7 +19,6 @@ const handleResponse = async (response) => {
     const data = text && JSON.parse(text);
     if (!response.ok) {
       if (response.status !== 200) {
-        logoutService();
         window.location.reload(true);
       }
 

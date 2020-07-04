@@ -100,7 +100,7 @@ class Login extends Component {
     }
 
     const err = await this.props.loginAction(email, password);
-    if (err !== null) {
+    if (err) {
       this.setState({
         errors: {},
         open: true,
