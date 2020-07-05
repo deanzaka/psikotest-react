@@ -111,7 +111,7 @@ class BigFiveIntro extends Component {
               <Grid item xs={1}>
                 <ArrowBack
                   className={classes.headerIcon}
-                  onClick={() => history.goBack()}
+                  onClick={() => history.push("/")}
                 />
               </Grid>
               <Grid item xs={11}>
@@ -254,9 +254,7 @@ class BigFiveIntro extends Component {
             <Box borderBottom={1} {...defaultProps} />
           </Grid>
         </Grid>
-        <Typography style={{ paddingLeft: "32px" }}>
-          - Bahagia saat bermain sepeda
-        </Typography>
+        <Typography>- Bahagia saat bermain sepeda</Typography>
         <Grid container style={{ paddingTop: "8px" }}>
           <Grid item xs={1}></Grid>
           <Grid item xs={2} className={classes.legendTag}>

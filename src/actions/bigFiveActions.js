@@ -6,7 +6,10 @@ export const getTemplateAction = () => async (dispatch) => {
     const template = await getTemplateService();
     dispatch({ type: bigFiveTypes.GET_TEMPLATE, payload: template });
   } catch (err) {
-    dispatch({ type: bigFiveTypes.REQUEST_FAILED, payload: err.toString() });
+    dispatch({
+      type: bigFiveTypes.REQUEST_FAILED,
+      payload: err.toString(),
+    });
     return err;
   }
 };

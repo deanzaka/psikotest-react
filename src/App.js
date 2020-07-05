@@ -68,7 +68,7 @@ const App = () => {
                 ></ProtectedRoute>
                 <ProtectedRoute
                   exact
-                  path="/big-five/intro"
+                  path="/big-five"
                   component={BigFiveIntro}
                 ></ProtectedRoute>
                 <ProtectedRoute

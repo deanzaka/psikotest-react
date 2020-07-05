@@ -6,7 +6,7 @@ const initialState = template ? { inSession: true, template } : {};
 export default (state = initialState, action) => {
   switch (action.type) {
     case bigFiveTypes.GET_TEMPLATE:
-      return { inSession: true, docs: action.payload };
+      return { inSession: true, template: action.payload };
     case bigFiveTypes.REQUEST_FAILED:
       return {};
     default:

@@ -78,7 +78,7 @@ class List extends Component {
         <Typography className={classes.title}>Kategori Psikotes</Typography>
         <Typography className={classes.testTitle}>Tes Kepribadian</Typography>
         <Card className={classes.card}>
-          <CardActionArea onClick={() => history.push("/big-five/intro")}>
+          <CardActionArea onClick={() => history.push("/big-five")}>
             <Grid container>
               <Grid item xs={3}>
                 <CardMedia
