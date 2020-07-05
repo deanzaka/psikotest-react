@@ -1,23 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-class ProtectedRoute extends Component {
-  render() {
-    const { component: Component, ...props } = this.props;
-
-    return (
-      <Route
-        {...props}
-        render={(props) =>
-          localStorage.getItem("user") ? (
-            <Component {...props} />
-          ) : (
-            <Redirect to="/login" />
-          )
-        }
-      />
-    );
-  }
-}
+const ProtectedRoute = ({ component: Component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        localStorage.getItem("user") ? (
+          <Component {...rest} {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
+    />
+  );
+};
 
 export default ProtectedRoute;

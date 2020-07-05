@@ -1,10 +1,8 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { loginAction } from "../../actions/loginActions";
-import { withStyles } from "@material-ui/core/styles";
 import {
   Button,
   Container,
@@ -15,12 +13,13 @@ import {
 } from "@material-ui/core";
 
 import logo from "../../assets/images/Logo.svg";
+import { makeStyles } from "@material-ui/styles";
 
 const Alert = (props) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     paddingTop: theme.spacing(10),
     paddingBottom: theme.spacing(6),
@@ -56,136 +55,125 @@ const styles = (theme) => ({
     fontWeight: "500px",
     fontSize: "16px",
   },
-});
+}));
 
-class Login extends Component {
-  state = {
-    email: "",
-    password: "",
-    errors: "",
-    open: false,
-  };
+const Login = (props) => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [errorEmail, setErrorEmail] = React.useState("");
+  const [errorPassword, setErrorPassword] = React.useState("");
+  const [open, setOpen] = React.useState("");
 
-  onClose = (event, reason) => {
+  const onClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
-    this.setState({
-      open: false,
-    });
+    setOpen(false);
   };
 
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
-  onSubmit = async (e) => {
+  const onChange = (e) => {
+    switch (e.target.name) {
+      case "email":
+        setEmail(e.target.value);
+        break;
+      case "password":
+        setPassword(e.target.value);
+        break;
+      default:
+    }
+  };
+
+  const onSubmit = async (e) => {
     e.preventDefault();
 
-    const { email, password } = this.state;
-
     if (email === "") {
-      this.setState({
-        errors: {
-          email: "Harap masukkan email",
-        },
-      });
+      setErrorEmail("Harap masukkan email");
       return;
     }
     if (password === "") {
-      this.setState({
-        errors: {
-          password: "Harap masukkan password",
-        },
-      });
+      setErrorPassword("Harap masukkan password");
       return;
     }
 
-    const err = await this.props.loginAction(email, password);
+    const err = await dispatch(loginAction(email, password));
     if (err) {
-      this.setState({
-        errors: {},
-        open: true,
-      });
+      setErrorEmail("");
+      setErrorPassword("");
+      setOpen(true);
     } else {
-      this.setState({
-        email: "",
-        password: "",
-        errors: {},
-      });
+      setEmail("");
+      setPassword("");
+      setErrorEmail("");
+      setErrorPassword("");
 
-      this.props.history.push("/");
+      props.history.push("/");
     }
   };
 
-  render() {
-    const { classes } = this.props;
-    const { email, password, errors, open } = this.state;
-    return (
-      <Container
-        component="main"
-        maxWidth="xs"
-        style={{
-          padding: 32,
-        }}
-      >
-        <CssBaseline />
-        <div className={classes.paper}>
-          <img src={logo} alt="Logo" />
-          <Typography className={classes.login}>Masuk</Typography>
-          <Divider className={classes.divider} variant="middle" />
-          <form className={classes.form} onSubmit={this.onSubmit} noValidate>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Alamat email"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={email}
-              onChange={this.onChange}
-              error={typeof errors.email != "undefined"}
-              helperText={errors.email}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Kata sandi"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={this.onChange}
-              error={typeof errors.password != "undefined"}
-              helperText={errors.password}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="secondary"
-              className={classes.submit}
-            >
-              Masuk
-            </Button>
-            <Typography align="right">Lupa kata sandi?</Typography>
-          </form>
-        </div>
-        <Snackbar open={open} autoHideDuration={6000} onClose={this.onClose}>
-          <Alert onClose={this.onClose} severity="error">
-            Email atau password salah
-          </Alert>
-        </Snackbar>
-      </Container>
-    );
-  }
-}
-
-Login.propTypes = {
-  classes: PropTypes.object.isRequired,
-  loginAction: PropTypes.func.isRequired,
+  return (
+    <Container
+      component="main"
+      maxWidth="xs"
+      style={{
+        padding: 32,
+      }}
+    >
+      <CssBaseline />
+      <div className={classes.paper}>
+        <img src={logo} alt="Logo" />
+        <Typography className={classes.login}>Masuk</Typography>
+        <Divider className={classes.divider} variant="middle" />
+        <form className={classes.form} onSubmit={onSubmit} noValidate>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Alamat email"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={onChange}
+            error={errorEmail !== ""}
+            helperText={errorEmail}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Kata sandi"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={onChange}
+            error={errorPassword !== ""}
+            helperText={errorPassword}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="secondary"
+            className={classes.submit}
+          >
+            Masuk
+          </Button>
+          <Typography align="right">Lupa kata sandi?</Typography>
+        </form>
+      </div>
+      <Snackbar open={open} autoHideDuration={6000} onClose={onClose}>
+        <Alert onClose={onClose} severity="error">
+          Email atau password salah
+        </Alert>
+      </Snackbar>
+    </Container>
+  );
 };
 
-export default withStyles(styles)(connect(null, { loginAction })(Login));
+export default connect(null, { loginAction })(Login);

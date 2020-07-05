@@ -1,3 +1,5 @@
+// TODO: unused for now, will need to restructure to use hook
+
 import React, { Component } from "react";
 import {
   Container,

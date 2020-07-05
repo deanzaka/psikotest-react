@@ -26,12 +26,14 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: "0px",
     height: theme.spacing(8),
     justifyContent: "center",
+    backgroundColor: "white",
     boxShadow:
       "0px 3px 3px -2px #A2DDFB, 0px 1px 1px -1px #A2DDFB, 0px 1px 3px -3px #A2DDFB",
   },
   menuButton: {
     float: "right",
     position: "relative",
+    color: "black",
     marginRight: theme.spacing(1),
   },
   popOver: { width: "100%" },
@@ -90,12 +92,7 @@ const Header = (props) => {
       }}
     >
       <CssBaseline />
-      <AppBar
-        ref={anchorRef}
-        position="relative"
-        color="#default"
-        className={classes.box}
-      >
+      <AppBar ref={anchorRef} position="relative" className={classes.box}>
         <Toolbar>
           <Container className={classes.logo}>
             <img classes={classes.logo} src={logo} alt="Logo" />{" "}
