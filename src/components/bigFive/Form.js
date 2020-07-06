@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getTemplateAction } from "../../actions/bigFiveActions";
 import {
   Snackbar,
@@ -12,12 +12,12 @@ import {
   Box,
   Button,
   LinearProgress,
+  makeStyles,
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import { withStyles } from "@material-ui/styles";
 import BigFivePage from "./Page";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -62,7 +62,7 @@ const styles = (theme) => ({
     fontSize: "16px",
     textTransform: "capitalize",
   },
-});
+}));
 
 const defaultProps = {
   bgcolor: "background.paper",
@@ -71,169 +71,152 @@ const defaultProps = {
   borderColor: "text.primary",
 };
 
-class BigFiveForm extends Component {
-  state = {
-    open: false,
-    error: "",
-    currentPage: 1,
-    progress: 0,
+const BigFiveForm = (props) => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const template = useSelector((state) => state.bigFive.template);
+  const [open, setOpen] = React.useState(false);
+  const [error, setError] = React.useState("");
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [progress, setProgress] = React.useState(0);
+
+  React.useEffect = async () => {
+    const err = await dispatch(getTemplateAction());
+    if (err) {
+      setError(err.toString());
+    }
   };
 
-  componentDidMount() {
-    this.props.getTemplateAction();
-  }
-
-  onClose = (event, reason) => {
+  const onClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
-    this.setState({
-      open: false,
-    });
+    setOpen(false);
   };
 
-  onNext = () => {
-    const { template } = this.props;
-    if (template.doc.length > this.state.currentPage * 10) {
+  const onNext = () => {
+    if (template.doc.length > currentPage * 10) {
       let maxPage = template.doc.length / 10;
       if (template.doc.length % 10 > 0) {
         maxPage++;
       }
-      const progress = ((this.state.currentPage + 1) * 100) / maxPage;
-      this.setState({
-        currentPage: this.state.currentPage + 1,
-        progress: progress,
-      });
+      const progress = ((currentPage + 1) * 100) / maxPage;
+      setCurrentPage(currentPage + 1);
+      setProgress(progress);
     }
   };
 
-  onBack = () => {
-    const { template } = this.props;
-    if (this.state.currentPage > 1) {
+  const onBack = () => {
+    if (currentPage > 1) {
       let maxPage = template.doc.length / 10;
       if (template.doc.length % 10 > 0) {
         maxPage++;
       }
-      const progress = ((this.state.currentPage - 1) * 100) / maxPage;
-      this.setState({
-        currentPage: this.state.currentPage - 1,
-        progress: progress,
-      });
+      const progress = ((currentPage - 1) * 100) / maxPage;
+      setCurrentPage(currentPage - 1);
+      setProgress(progress);
     }
   };
 
-  onFinish = () => {
+  const onFinish = () => {
     console.log("FINISH");
   };
 
-  render() {
-    const { open, error, currentPage, progress } = this.state;
-    const { classes, template } = this.props;
-    return (
+  return (
+    <Container
+      component="main"
+      style={{
+        padding: 0,
+      }}
+    >
+      <CssBaseline />
+      <AppBar position="relative" color="default" className={classes.box}>
+        <Toolbar>
+          <Typography className={classes.headerTitle}>
+            Big Five Personality Test
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <LinearProgress
+        variant="determinate"
+        color="primary"
+        value={progress}
+      ></LinearProgress>
+      <Grid container className={classes.question}>
+        <Grid item xs={6}>
+          <Typography>Saya adalah orang yang</Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <Box borderBottom={1} {...defaultProps} />
+        </Grid>
+      </Grid>
+      {template ? <BigFivePage page={currentPage}></BigFivePage> : null}
+
       <Container
-        component="main"
         style={{
-          padding: 0,
+          paddingTop: "40px",
+          paddingLeft: "32px",
+          paddingRight: "32px",
+          paddingBottom: "40px",
         }}
       >
-        <CssBaseline />
-        <AppBar position="relative" color="default" className={classes.box}>
-          <Toolbar>
-            <Typography className={classes.headerTitle}>
-              Big Five Personality Test
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <LinearProgress
-          variant="determinate"
-          color="primary"
-          value={progress}
-        ></LinearProgress>
-        <Grid container className={classes.question}>
-          <Grid item xs={6}>
-            <Typography>Saya adalah orang yang</Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Box borderBottom={1} {...defaultProps} />
-          </Grid>
-        </Grid>
-        {template ? <BigFivePage page={currentPage}></BigFivePage> : null}
-
-        <Container
-          style={{
-            paddingTop: "40px",
-            paddingLeft: "32px",
-            paddingRight: "32px",
-            paddingBottom: "40px",
-          }}
-        >
-          {currentPage > 1 ? (
-            <Button
-              fullWidth
-              variant="contained"
-              color="secondary"
-              className={classes.back}
-              onClick={this.onBack}
-            >
-              <Grid container>
-                <Grid item xs={4}>
-                  {"<<"}
-                </Grid>
-                <Grid item xs={4}>
-                  Sebelumnya
-                </Grid>
-                <Grid item xs={4}></Grid>
+        {currentPage > 1 ? (
+          <Button
+            fullWidth
+            variant="contained"
+            color="secondary"
+            className={classes.back}
+            onClick={onBack}
+          >
+            <Grid container>
+              <Grid item xs={4}>
+                {"<<"}
               </Grid>
-            </Button>
-          ) : null}
-          {template && template.doc.length > this.state.currentPage * 10 ? (
-            <Button
-              fullWidth
-              variant="contained"
-              color="secondary"
-              className={classes.next}
-              onClick={this.onNext}
-            >
-              <Grid container>
-                <Grid item xs={4}></Grid>
-                <Grid item xs={4}>
-                  Selanjutnya
-                </Grid>
-                <Grid item xs={4}>
-                  {">>"}
-                </Grid>
+              <Grid item xs={4}>
+                Sebelumnya
               </Grid>
-            </Button>
-          ) : (
-            <Button
-              fullWidth
-              variant="contained"
-              color="secondary"
-              className={classes.finish}
-              onClick={this.onFinish}
-            >
-              Selesai
-            </Button>
-          )}
-        </Container>
-        <Snackbar open={open} autoHideDuration={6000} onClose={this.onClose}>
-          <Alert onClose={this.onClose} severity="error">
-            {error}
-          </Alert>
-        </Snackbar>
+              <Grid item xs={4}></Grid>
+            </Grid>
+          </Button>
+        ) : null}
+        {template && template.doc.length > currentPage * 10 ? (
+          <Button
+            fullWidth
+            variant="contained"
+            color="secondary"
+            className={classes.next}
+            onClick={onNext}
+          >
+            <Grid container>
+              <Grid item xs={4}></Grid>
+              <Grid item xs={4}>
+                Selanjutnya
+              </Grid>
+              <Grid item xs={4}>
+                {">>"}
+              </Grid>
+            </Grid>
+          </Button>
+        ) : (
+          <Button
+            fullWidth
+            variant="contained"
+            color="secondary"
+            className={classes.finish}
+            onClick={onFinish}
+          >
+            Selesai
+          </Button>
+        )}
       </Container>
-    );
-  }
-}
+      <Snackbar open={open} autoHideDuration={6000} onClose={onClose}>
+        <Alert onClose={onClose} severity="error">
+          {error}
+        </Alert>
+      </Snackbar>
+    </Container>
+  );
+};
 
-const mapStateToProps = (state) => ({
-  loggedIn: state.login.loggedIn,
-  user: state.login.user,
-  template: state.bigFive.template,
-  inSession: state.bigFive.inSession,
-});
-
-export default withStyles(styles)(
-  connect(mapStateToProps, { getTemplateAction })(BigFiveForm)
-);
+export default BigFiveForm;

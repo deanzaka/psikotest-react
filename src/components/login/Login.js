@@ -64,7 +64,7 @@ const Login = (props) => {
   const [password, setPassword] = React.useState("");
   const [errorEmail, setErrorEmail] = React.useState("");
   const [errorPassword, setErrorPassword] = React.useState("");
-  const [open, setOpen] = React.useState("");
+  const [open, setOpen] = React.useState(false);
 
   const onClose = (event, reason) => {
     if (reason === "clickaway") {
