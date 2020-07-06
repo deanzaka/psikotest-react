@@ -9,13 +9,17 @@ import {
   Typography,
   Box,
   Button,
+  Snackbar,
 } from "@material-ui/core";
 import { ArrowBack } from "@material-ui/icons";
+import { useDispatch } from "react-redux";
+import { getTemplateAction } from "../../actions/bigFiveActions";
 import sts from "../../assets/images/VectorSTS.svg";
 import ts from "../../assets/images/VectorTS.svg";
 import bs from "../../assets/images/VectorBS.svg";
 import s from "../../assets/images/VectorS.svg";
 import ss from "../../assets/images/VectorSS.svg";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -94,8 +98,27 @@ const defaultProps = {
 };
 
 const BigFiveIntro = (props) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const [error, setError] = React.useState("");
   const { history } = props;
+
+  const onStart = async () => {
+    const err = await dispatch(getTemplateAction());
+    if (err) {
+      setError(err.toString());
+    }
+
+    props.history.push("/big-five/form");
+  };
+  const onClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
   return (
     <Container
       component="main"
@@ -277,11 +300,16 @@ const BigFiveIntro = (props) => {
           variant="contained"
           color="secondary"
           className={classes.start}
-          onClick={() => history.push("/big-five/form")}
+          onClick={onStart}
         >
           Mulai
         </Button>
       </Container>
+      <Snackbar open={open} autoHideDuration={6000} onClose={onClose}>
+        <Alert onClose={onClose} severity="error">
+          {error}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };

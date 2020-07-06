@@ -1,8 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getTemplateAction } from "../../actions/bigFiveActions";
+import { useSelector } from "react-redux";
 import {
-  Snackbar,
   Container,
   CssBaseline,
   AppBar,
@@ -14,7 +12,6 @@ import {
   LinearProgress,
   makeStyles,
 } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
 import BigFivePage from "./Page";
 
 const useStyles = makeStyles((theme) => ({
@@ -73,27 +70,9 @@ const defaultProps = {
 
 const BigFiveForm = (props) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const template = useSelector((state) => state.bigFive.template);
-  const [open, setOpen] = React.useState(false);
-  const [error, setError] = React.useState("");
   const [currentPage, setCurrentPage] = React.useState(1);
   const [progress, setProgress] = React.useState(0);
-
-  React.useEffect = async () => {
-    const err = await dispatch(getTemplateAction());
-    if (err) {
-      setError(err.toString());
-    }
-  };
-
-  const onClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
 
   const onNext = () => {
     if (template.doc.length > currentPage * 10) {
@@ -210,11 +189,6 @@ const BigFiveForm = (props) => {
           </Button>
         )}
       </Container>
-      <Snackbar open={open} autoHideDuration={6000} onClose={onClose}>
-        <Alert onClose={onClose} severity="error">
-          {error}
-        </Alert>
-      </Snackbar>
     </Container>
   );
 };
