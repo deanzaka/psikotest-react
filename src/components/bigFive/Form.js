@@ -75,6 +75,7 @@ const BigFiveForm = (props) => {
   const [progress, setProgress] = React.useState(0);
 
   const onNext = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     if (template.doc.length > currentPage * 10) {
       let maxPage = template.doc.length / 10;
       if (template.doc.length % 10 > 0) {
@@ -87,6 +88,7 @@ const BigFiveForm = (props) => {
   };
 
   const onBack = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     if (currentPage > 1) {
       let maxPage = template.doc.length / 10;
       if (template.doc.length % 10 > 0) {
