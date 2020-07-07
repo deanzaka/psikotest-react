@@ -5,6 +5,7 @@ export const loginAction = (_id, password) => async (dispatch) => {
   try {
     dispatch({ type: loginTypes.LOGIN_REQUEST, payload: { _id } });
     const user = await loginService(_id, password);
+    localStorage.setItem("user", JSON.stringify(user));
     dispatch({ type: loginTypes.LOGIN_SUCCESS, payload: user });
     return null;
   } catch (err) {

@@ -4,6 +4,7 @@ import { bigFiveTypes } from "./types";
 export const getTemplateAction = () => async (dispatch) => {
   try {
     const template = await getTemplateService();
+    localStorage.setItem("template", JSON.stringify(template));
     dispatch({ type: bigFiveTypes.GET_TEMPLATE, payload: template });
   } catch (err) {
     dispatch({
@@ -12,4 +13,9 @@ export const getTemplateAction = () => async (dispatch) => {
     });
     return err;
   }
+};
+
+export const updateTemplateAction = (template) => (dispatch) => {
+  localStorage.setItem("template", JSON.stringify(template));
+  dispatch({ type: bigFiveTypes.UPDATE_TEMPLATE, payload: template });
 };

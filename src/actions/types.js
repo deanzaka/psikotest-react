@@ -6,5 +6,6 @@ export const loginTypes = {
 
 export const bigFiveTypes = {
   GET_TEMPLATE: "GET_TEMPLATE",
+  UPDATE_TEMPLATE: "UPDATE_TEMPLATE",
   REQUEST_FAILED: "REQUEST_FAILED",
 };

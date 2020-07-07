@@ -10,8 +10,6 @@ export const loginService = async (_id, password) => {
     requestOptions
   );
   const user = await handleResponse(res);
-
-  localStorage.setItem("user", JSON.stringify(user));
   return user;
 };
 

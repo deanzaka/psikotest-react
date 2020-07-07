@@ -9,8 +9,6 @@ export const getTemplateService = async () => {
     requestOptions
   );
   const template = await handleResponse(res);
-
-  localStorage.setItem("template", JSON.stringify(template));
   return template;
 };
 

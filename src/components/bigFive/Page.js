@@ -1,11 +1,12 @@
 import React from "react";
 import { Grid, Typography, makeStyles } from "@material-ui/core";
+import { useSelector, useDispatch } from "react-redux";
+import { updateTemplateAction } from "../../actions/bigFiveActions";
 import sts from "../../assets/images/VectorSTS.svg";
 import ts from "../../assets/images/VectorTS.svg";
 import bs from "../../assets/images/VectorBS.svg";
 import s from "../../assets/images/VectorS.svg";
 import ss from "../../assets/images/VectorSS.svg";
-import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,25 +17,36 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightNormal,
     fontSize: "16px",
   },
+  selected: {
+    cursor: "pointer",
+  },
   gray: {
     opacity: 0.4,
     filter: "grayscale(80%)",
+    cursor: "pointer",
   },
 }));
 
 const BigFivePage = (props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const template = useSelector((state) => state.bigFive.template);
   const { page } = props;
   let limit = page * 10;
   if (limit > template.doc.length) {
     limit = template.doc.length;
   }
-  const items = template.doc.slice((page - 1) * 10, limit);
+
+  const onClick = (e) => {
+    const input = e.target.name.split(":");
+    template.doc[parseInt(input[0]) - 1].score = parseInt(input[1]);
+    dispatch(updateTemplateAction(template));
+  };
+
   return (
     <div>
-      {items.map((item) => (
-        <div>
+      {template.doc.slice((page - 1) * 10, limit).map((question) => (
+        <div key={question.indexNumber.toString()}>
           <Grid
             container
             style={{
@@ -44,28 +56,68 @@ const BigFivePage = (props) => {
             }}
           >
             <Grid item xs={1} style={{ textAlign: "center" }}>
-              <Typography>-</Typography>
+              <Typography>{question.indexNumber}</Typography>
             </Grid>
             <Grid item xs={11}>
-              <Typography>{item.statement}</Typography>
+              <Typography>{question.statement}</Typography>
             </Grid>
           </Grid>
           <Grid container>
             <Grid item xs={1}></Grid>
             <Grid item xs={2} className={classes.legendTag}>
-              <img src={sts} alt="sts" className={classes.gray} />{" "}
+              <img
+                src={sts}
+                alt="sts"
+                className={
+                  question.score === 1 ? classes.selected : classes.gray
+                }
+                name={question.indexNumber + ":1"}
+                onClick={onClick}
+              />{" "}
             </Grid>
             <Grid item xs={2} className={classes.legendTag}>
-              <img src={ts} alt="ts" className={classes.gray} />{" "}
+              <img
+                src={ts}
+                alt="ts"
+                className={
+                  question.score === 2 ? classes.selected : classes.gray
+                }
+                name={question.indexNumber + ":2"}
+                onClick={onClick}
+              />{" "}
             </Grid>
             <Grid item xs={2} className={classes.legendTag}>
-              <img src={bs} alt="bs" className={classes.gray} />{" "}
+              <img
+                src={bs}
+                alt="bs"
+                className={
+                  question.score === 3 ? classes.selected : classes.gray
+                }
+                name={question.indexNumber + ":3"}
+                onClick={onClick}
+              />{" "}
             </Grid>
             <Grid item xs={2} className={classes.legendTag}>
-              <img src={s} alt="s" className={classes.gray} />{" "}
+              <img
+                src={s}
+                alt="s"
+                className={
+                  question.score === 4 ? classes.selected : classes.gray
+                }
+                name={question.indexNumber + ":4"}
+                onClick={onClick}
+              />{" "}
             </Grid>
             <Grid item xs={2} className={classes.legendTag}>
-              <img src={ss} alt="ss" className={classes.gray} />{" "}
+              <img
+                src={ss}
+                alt="ss"
+                className={
+                  question.score === 5 ? classes.selected : classes.gray
+                }
+                name={question.indexNumber + ":5"}
+                onClick={onClick}
+              />{" "}
             </Grid>
             <Grid item xs={1}></Grid>
           </Grid>
