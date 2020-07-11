@@ -10,15 +10,14 @@ import {
   Box,
   Button,
   Snackbar,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from "@material-ui/core";
 import { ArrowBack } from "@material-ui/icons";
 import { useDispatch } from "react-redux";
 import { getTemplateAction } from "../../actions/bigFiveActions";
-import sts from "../../assets/images/VectorSTS.svg";
-import ts from "../../assets/images/VectorTS.svg";
-import bs from "../../assets/images/VectorBS.svg";
-import s from "../../assets/images/VectorS.svg";
-import ss from "../../assets/images/VectorSS.svg";
 import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
@@ -166,105 +165,6 @@ const BigFiveIntro = (props) => {
         imperdiet. Sed gravida libero at leo auctor, vel dignissim turpis
         gravida. Sed et condimentum dolor, id semper nibh.
       </Typography>
-      <Typography className={classes.legendTitle}>Keterangan Simbol</Typography>
-      <Grid container style={{ paddingTop: "8px" }}>
-        <Grid item xs={1}></Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          <img src={sts} alt="sts" />{" "}
-        </Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          <img src={ts} alt="ts" />{" "}
-        </Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          <img src={bs} alt="bs" />{" "}
-        </Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          <img src={s} alt="s" />{" "}
-        </Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          <img src={ss} alt="ss" />{" "}
-        </Grid>
-        <Grid item xs={1}></Grid>
-      </Grid>
-      <Grid container>
-        <Grid item xs={1}></Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          STS
-        </Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          TS
-        </Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          BS
-        </Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          S
-        </Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          SS
-        </Grid>
-        <Grid item xs={1}></Grid>
-      </Grid>
-      <Grid container style={{ paddingTop: "24px", fontSize: "16px" }}>
-        <Grid item xs={3}></Grid>
-        <Grid item xs={1} style={{ textAlign: "left" }}>
-          STS
-        </Grid>
-        <Grid item xs={1} style={{ textAlign: "center" }}>
-          -
-        </Grid>
-        <Grid item xs={7} style={{ textAlign: "left" }}>
-          Sangat Tidak Setuju
-        </Grid>
-      </Grid>
-      <Grid container style={{ paddingTop: "24px", fontSize: "16px" }}>
-        <Grid item xs={3}></Grid>
-        <Grid item xs={1} style={{ textAlign: "left" }}>
-          TS
-        </Grid>
-        <Grid item xs={1} style={{ textAlign: "center" }}>
-          -
-        </Grid>
-        <Grid item xs={7} style={{ textAlign: "left" }}>
-          Tidak Setuju
-        </Grid>
-      </Grid>
-      <Grid container style={{ paddingTop: "24px", fontSize: "16px" }}>
-        <Grid item xs={3}></Grid>
-        <Grid item xs={1} style={{ textAlign: "left" }}>
-          BS
-        </Grid>
-        <Grid item xs={1} style={{ textAlign: "center" }}>
-          -
-        </Grid>
-        <Grid item xs={7} style={{ textAlign: "left" }}>
-          Biasa Saja
-        </Grid>
-      </Grid>
-      <Grid container style={{ paddingTop: "24px", fontSize: "16px" }}>
-        <Grid item xs={3}></Grid>
-        <Grid item xs={1} style={{ textAlign: "left" }}>
-          S
-        </Grid>
-        <Grid item xs={1} style={{ textAlign: "center" }}>
-          -
-        </Grid>
-        <Grid item xs={7} style={{ textAlign: "left" }}>
-          Setuju
-        </Grid>
-      </Grid>
-      <Grid container style={{ paddingTop: "24px", fontSize: "16px" }}>
-        <Grid item xs={3}></Grid>
-        <Grid item xs={1} style={{ textAlign: "left" }}>
-          SS
-        </Grid>
-        <Grid item xs={1} style={{ textAlign: "center" }}>
-          -
-        </Grid>
-        <Grid item xs={7} style={{ textAlign: "left" }}>
-          Sangat Setuju
-        </Grid>
-      </Grid>
       <Typography className={classes.legendTitle}>Ilustrasi</Typography>
       <Grid container className={classes.question}>
         <Grid item xs={6}>
@@ -273,26 +173,40 @@ const BigFiveIntro = (props) => {
         <Grid item xs={6}>
           <Box borderBottom={1} {...defaultProps} />
         </Grid>
-      </Grid>
-      <Typography>- Bahagia saat bermain sepeda</Typography>
-      <Grid container style={{ paddingTop: "8px" }}>
-        <Grid item xs={1}></Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          <img src={sts} alt="sts" className={classes.gray} />{" "}
+        <Grid item xs={1} style={{ textAlign: "center" }}>
+          <Typography>1.</Typography>
         </Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          <img src={ts} alt="ts" className={classes.gray} />{" "}
-        </Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          <img src={bs} alt="bs" className={classes.gray} />{" "}
-        </Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          <img src={s} alt="s" className={classes.gray} />{" "}
-        </Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          <img src={ss} alt="ss" />{" "}
+        <Grid item xs={11}>
+          <Typography>Bahagia saat bermain sepeda</Typography>
         </Grid>
         <Grid item xs={1}></Grid>
+        <Grid item xs={11}>
+          <FormControl component="fieldset">
+            <RadioGroup aria-label="q1" name="q1" value={"ss"}>
+              <FormControlLabel
+                value="sts"
+                control={<Radio />}
+                label="Sangat Tidak Setuju"
+              />
+              <FormControlLabel
+                value="ts"
+                control={<Radio />}
+                label="Tidak Setuju"
+              />
+              <FormControlLabel
+                value="bs"
+                control={<Radio />}
+                label="Biasa Saja"
+              />
+              <FormControlLabel value="s" control={<Radio />} label="Setuju" />
+              <FormControlLabel
+                value="ss"
+                control={<Radio />}
+                label="Sangat Setuju"
+              />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
       </Grid>
       <Container style={{ paddingLeft: "32px", paddingRight: "32px" }}>
         <Button

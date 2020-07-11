@@ -1,34 +1,37 @@
 import React from "react";
-import { Grid, Typography, makeStyles } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  // makeStyles,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+} from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { updateTemplateAction } from "../../actions/bigFiveActions";
-import sts from "../../assets/images/VectorSTS.svg";
-import ts from "../../assets/images/VectorTS.svg";
-import bs from "../../assets/images/VectorBS.svg";
-import s from "../../assets/images/VectorS.svg";
-import ss from "../../assets/images/VectorSS.svg";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  legendTag: {
-    textAlign: "center",
-    fontWeight: theme.typography.fontWeightNormal,
-    fontSize: "16px",
-  },
-  selected: {
-    cursor: "pointer",
-  },
-  gray: {
-    opacity: 0.4,
-    filter: "grayscale(80%)",
-    cursor: "pointer",
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     flexGrow: 1,
+//   },
+//   legendTag: {
+//     textAlign: "center",
+//     fontWeight: theme.typography.fontWeightNormal,
+//     fontSize: "16px",
+//   },
+//   selected: {
+//     cursor: "pointer",
+//   },
+//   gray: {
+//     opacity: 0.4,
+//     filter: "grayscale(80%)",
+//     cursor: "pointer",
+//   },
+// }));
 
 const BigFivePage = (props) => {
-  const classes = useStyles();
+  // const classes = useStyles();
   const dispatch = useDispatch();
   const template = useSelector((state) => state.bigFive.template);
   const { page } = props;
@@ -37,9 +40,8 @@ const BigFivePage = (props) => {
     limit = template.doc.length;
   }
 
-  const onClick = (e) => {
-    const input = e.target.name.split(":");
-    template.doc[parseInt(input[0]) - 1].score = parseInt(input[1]);
+  const onChange = (e) => {
+    template.doc[e.target.name - 1].score = e.target.value;
     dispatch(updateTemplateAction(template));
   };
 
@@ -56,70 +58,56 @@ const BigFivePage = (props) => {
             }}
           >
             <Grid item xs={1} style={{ textAlign: "center" }}>
-              <Typography>{question.indexNumber}</Typography>
+              <Typography>{question.indexNumber}.</Typography>
             </Grid>
             <Grid item xs={11}>
               <Typography>{question.statement}</Typography>
             </Grid>
           </Grid>
-          <Grid container>
+          <Grid
+            container
+            style={{
+              paddingLeft: "20px",
+              paddingRight: "32px",
+            }}
+          >
             <Grid item xs={1}></Grid>
-            <Grid item xs={2} className={classes.legendTag}>
-              <img
-                src={sts}
-                alt="sts"
-                className={
-                  question.score === 1 ? classes.selected : classes.gray
-                }
-                name={question.indexNumber + ":1"}
-                onClick={onClick}
-              />{" "}
+            <Grid item xs={11}>
+              <FormControl component="fieldset">
+                <RadioGroup
+                  aria-label={question.indexNumber.toString()}
+                  name={question.indexNumber.toString()}
+                  value={question.score ? question.score.toString() : "0"}
+                  onChange={onChange}
+                >
+                  <FormControlLabel
+                    value="1"
+                    control={<Radio />}
+                    label="Sangat Tidak Setuju"
+                  />
+                  <FormControlLabel
+                    value="2"
+                    control={<Radio />}
+                    label="Tidak Setuju"
+                  />
+                  <FormControlLabel
+                    value="3"
+                    control={<Radio />}
+                    label="Biasa Saja"
+                  />
+                  <FormControlLabel
+                    value="4"
+                    control={<Radio />}
+                    label="Setuju"
+                  />
+                  <FormControlLabel
+                    value="5"
+                    control={<Radio />}
+                    label="Sangat Setuju"
+                  />
+                </RadioGroup>
+              </FormControl>
             </Grid>
-            <Grid item xs={2} className={classes.legendTag}>
-              <img
-                src={ts}
-                alt="ts"
-                className={
-                  question.score === 2 ? classes.selected : classes.gray
-                }
-                name={question.indexNumber + ":2"}
-                onClick={onClick}
-              />{" "}
-            </Grid>
-            <Grid item xs={2} className={classes.legendTag}>
-              <img
-                src={bs}
-                alt="bs"
-                className={
-                  question.score === 3 ? classes.selected : classes.gray
-                }
-                name={question.indexNumber + ":3"}
-                onClick={onClick}
-              />{" "}
-            </Grid>
-            <Grid item xs={2} className={classes.legendTag}>
-              <img
-                src={s}
-                alt="s"
-                className={
-                  question.score === 4 ? classes.selected : classes.gray
-                }
-                name={question.indexNumber + ":4"}
-                onClick={onClick}
-              />{" "}
-            </Grid>
-            <Grid item xs={2} className={classes.legendTag}>
-              <img
-                src={ss}
-                alt="ss"
-                className={
-                  question.score === 5 ? classes.selected : classes.gray
-                }
-                name={question.indexNumber + ":5"}
-                onClick={onClick}
-              />{" "}
-            </Grid>
-            <Grid item xs={1}></Grid>
           </Grid>
         </div>
       ))}
