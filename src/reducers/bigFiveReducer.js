@@ -1,12 +1,14 @@
 import { bigFiveTypes } from "../actions/types";
 
 let template = JSON.parse(localStorage.getItem("template"));
-const initialState = template ? { inSession: true, template } : {};
+const initialState = template
+  ? { complete: false, hasError: false, template }
+  : {};
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case bigFiveTypes.GET_TEMPLATE:
-      return { ...state, inSession: true, template: action.payload };
+      return { ...state, hasError: false, template: action.payload };
     case bigFiveTypes.UPDATE_TEMPLATE:
       return {
         ...state,
@@ -14,6 +16,11 @@ export default (state = initialState, action) => {
           _id: action.payload._id,
           doc: action.payload.doc,
         },
+      };
+    case bigFiveTypes.SET_HAS_ERROR:
+      return {
+        ...state,
+        hasError: action.payload,
       };
     case bigFiveTypes.REQUEST_FAILED:
       return state;

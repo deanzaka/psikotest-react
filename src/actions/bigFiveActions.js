@@ -19,3 +19,7 @@ export const updateTemplateAction = (template) => (dispatch) => {
   localStorage.setItem("template", JSON.stringify(template));
   dispatch({ type: bigFiveTypes.UPDATE_TEMPLATE, payload: template });
 };
+
+export const setHasError = (hasError) => (dispatch) => {
+  dispatch({ type: bigFiveTypes.SET_HAS_ERROR, payload: hasError });
+};

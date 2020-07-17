@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Container,
   CssBaseline,
@@ -13,6 +13,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import BigFivePage from "./Page";
+import { setHasError } from "../../actions/bigFiveActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,6 +45,15 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     fontSize: "16px",
     textTransform: "capitalize",
+    color: "white",
+  },
+  nextGray: {
+    marginTop: "4px",
+    background: "linear-gradient(90deg, #333333 0%, #5C5C5C 100%)",
+    fontWeight: "bold",
+    fontSize: "16px",
+    textTransform: "capitalize",
+    color: "white",
   },
   back: {
     marginBottom: "4px",
@@ -51,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     fontSize: "16px",
     textTransform: "capitalize",
+    color: "white",
   },
   finish: {
     marginTop: "4px",
@@ -58,6 +69,23 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     fontSize: "16px",
     textTransform: "capitalize",
+    color: "white",
+  },
+  finishGray: {
+    marginTop: "4px",
+    background: "linear-gradient(90deg, #F333333 0%, #5C5C5C 100%)",
+    fontWeight: "bold",
+    fontSize: "16px",
+    textTransform: "capitalize",
+    color: "white",
+  },
+  errorText: {
+    color: "#F75291",
+    fontWeight: "bold",
+    fontSize: "12px",
+    textAlign: "center",
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(3),
   },
 }));
 
@@ -69,21 +97,43 @@ const defaultProps = {
 };
 
 const BigFiveForm = (props) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const template = useSelector((state) => state.bigFive.template);
+  const hasError = useSelector((state) => state.bigFive.hasError);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [progress, setProgress] = React.useState(0);
 
+  let complete = true;
+  let limit = currentPage * 10;
+  if (limit > template.doc.length) {
+    limit = template.doc.length;
+  }
+  const currentForm = template.doc.slice((currentPage - 1) * 10, limit);
+  const empties = currentForm.filter((item) => {
+    return typeof item.score === "undefined";
+  });
+  if (empties.length > 0) {
+    complete = false;
+  }
+
   const onNext = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    if (template.doc.length > currentPage * 10) {
-      let maxPage = template.doc.length / 10;
-      if (template.doc.length % 10 > 0) {
-        maxPage++;
+    let maxPage = template.doc.length / 10;
+    if (template.doc.length % 10 > 0) {
+      maxPage++;
+    }
+    const progress = ((currentPage + 1) * 100) / maxPage;
+
+    if (complete) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (template.doc.length > currentPage * 10) {
+        setCurrentPage(currentPage + 1);
+        setProgress(progress);
+        dispatch(setHasError(false));
       }
-      const progress = ((currentPage + 1) * 100) / maxPage;
-      setCurrentPage(currentPage + 1);
-      setProgress(progress);
+    } else {
+      dispatch(setHasError(true));
+      return;
     }
   };
 
@@ -146,7 +196,6 @@ const BigFiveForm = (props) => {
           <Button
             fullWidth
             variant="contained"
-            color="secondary"
             className={classes.back}
             onClick={onBack}
           >
@@ -165,8 +214,7 @@ const BigFiveForm = (props) => {
           <Button
             fullWidth
             variant="contained"
-            color="secondary"
-            className={classes.next}
+            className={complete ? classes.next : classes.nextGray}
             onClick={onNext}
           >
             <Grid container>
@@ -183,13 +231,17 @@ const BigFiveForm = (props) => {
           <Button
             fullWidth
             variant="contained"
-            color="secondary"
-            className={classes.finish}
+            className={complete ? classes.finishGray : classes.finishGray}
             onClick={onFinish}
           >
             Selesai
           </Button>
         )}
+        {hasError ? (
+          <Typography className={classes.errorText}>
+            *Ada yang belom terisi, periksa kembali pilihanmu
+          </Typography>
+        ) : null}
       </Container>
     </Container>
   );

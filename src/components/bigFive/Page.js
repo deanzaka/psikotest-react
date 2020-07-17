@@ -2,7 +2,7 @@ import React from "react";
 import {
   Grid,
   Typography,
-  // makeStyles,
+  makeStyles,
   FormControl,
   RadioGroup,
   FormControlLabel,
@@ -11,29 +11,18 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { updateTemplateAction } from "../../actions/bigFiveActions";
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-//   legendTag: {
-//     textAlign: "center",
-//     fontWeight: theme.typography.fontWeightNormal,
-//     fontSize: "16px",
-//   },
-//   selected: {
-//     cursor: "pointer",
-//   },
-//   gray: {
-//     opacity: 0.4,
-//     filter: "grayscale(80%)",
-//     cursor: "pointer",
-//   },
-// }));
+const useStyles = makeStyles((theme) => ({
+  errorText: {
+    color: "#F75291",
+    fontWeight: "bold",
+  },
+}));
 
 const BigFivePage = (props) => {
-  // const classes = useStyles();
   const dispatch = useDispatch();
+  const classes = useStyles();
   const template = useSelector((state) => state.bigFive.template);
+  const hasError = useSelector((state) => state.bigFive.hasError);
   const { page } = props;
   let limit = page * 10;
   if (limit > template.doc.length) {
@@ -57,11 +46,33 @@ const BigFivePage = (props) => {
               paddingRight: "32px",
             }}
           >
-            <Grid item xs={1} style={{ textAlign: "center" }}>
-              <Typography>{question.indexNumber}.</Typography>
+            <Grid
+              item
+              xs={1}
+              style={{
+                textAlign: "center",
+              }}
+            >
+              <Typography
+                className={
+                  hasError && typeof question.score === "undefined"
+                    ? classes.errorText
+                    : null
+                }
+              >
+                {question.indexNumber}.
+              </Typography>
             </Grid>
             <Grid item xs={11}>
-              <Typography>{question.statement}</Typography>
+              <Typography
+                className={
+                  hasError && typeof question.score === "undefined"
+                    ? classes.errorText
+                    : null
+                }
+              >
+                {question.statement}
+              </Typography>
             </Grid>
           </Grid>
           <Grid
