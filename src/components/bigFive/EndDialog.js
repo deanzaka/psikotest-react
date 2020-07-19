@@ -2,10 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import { Typography, Grid, Button, Snackbar } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import {
-  getTemplateAction,
-  setStartDialogOpen,
-} from "../../actions/bigFiveActions";
+import { setEndDialogOpen } from "../../actions/bigFiveActions";
 import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
@@ -31,17 +28,19 @@ const useStyles = makeStyles((theme) => ({
 const StartDialog = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [openError, setOpenError] = React.useState(false);
   const [error, setError] = React.useState("");
-  const { history } = props;
+  const [openError, setOpenError] = React.useState(false);
+  // const { history } = props;
 
-  const onStart = async () => {
-    const err = await dispatch(getTemplateAction());
-    if (err) {
-      setError(err.toString());
-    }
+  const onFinish = async () => {
+    // const err = await dispatch(getTemplateAction());
+    // if (err) {
+    //   setError(err.toString());
+    // }
 
-    history.push("/big-five/form");
+    // history.push("/big-five/form");
+    setError("");
+    console.log("FINISH");
   };
 
   const onCloseError = (event, reason) => {
@@ -55,7 +54,7 @@ const StartDialog = (props) => {
   return (
     <div className={classes.paper}>
       <Typography className={classes.title}>
-        Apakah anda yakin untuk memulai tes?
+        Apakah anda yakin untuk mengakhiri tes?
       </Typography>
       <Grid container>
         <Grid item xs={6}>
@@ -63,7 +62,7 @@ const StartDialog = (props) => {
             fullWidth
             variant="outlined"
             color="secondary"
-            onClick={onStart}
+            onClick={onFinish}
           >
             Iya
           </Button>
@@ -73,7 +72,7 @@ const StartDialog = (props) => {
             fullWidth
             variant="outlined"
             color="primary"
-            onClick={() => dispatch(setStartDialogOpen(false))}
+            onClick={() => dispatch(setEndDialogOpen(false))}
           >
             Tidak
           </Button>

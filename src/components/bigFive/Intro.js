@@ -17,6 +17,8 @@ import {
 } from "@material-ui/core";
 import { ArrowBack } from "@material-ui/icons";
 import StartDialog from "./StartDialog";
+import { useDispatch, useSelector } from "react-redux";
+import { setStartDialogOpen } from "../../actions/bigFiveActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,12 +97,13 @@ const defaultProps = {
 };
 
 const BigFiveIntro = (props) => {
+  const dispatch = useDispatch();
+  const startDialogOpen = useSelector((state) => state.bigFive.startDialogOpen);
   const classes = useStyles();
-  const [openDialog, setOpenDialog] = React.useState(false);
   const { history } = props;
 
   const onOpenDialog = async () => {
-    setOpenDialog(true);
+    dispatch(setStartDialogOpen(true));
   };
 
   return (
@@ -205,7 +208,7 @@ const BigFiveIntro = (props) => {
           Mulai
         </Button>
       </Container>
-      <Modal open={openDialog}>
+      <Modal open={startDialogOpen}>
         <StartDialog history={history} />
       </Modal>
     </Container>

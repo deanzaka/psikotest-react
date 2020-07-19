@@ -2,7 +2,13 @@ import { bigFiveTypes } from "../actions/types";
 
 let template = JSON.parse(localStorage.getItem("template"));
 const initialState = template
-  ? { complete: false, hasError: false, template }
+  ? {
+      complete: false,
+      hasError: false,
+      startDialogOpen: false,
+      endDialogOpen: false,
+      template,
+    }
   : {};
 
 export default (state = initialState, action) => {
@@ -21,6 +27,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         hasError: action.payload,
+      };
+    case bigFiveTypes.SET_START_DIALOG_OPEN:
+      return {
+        ...state,
+        startDialogOpen: action.payload,
+      };
+    case bigFiveTypes.SET_END_DIALOG_OPEN:
+      return {
+        ...state,
+        endDialogOpen: action.payload,
       };
     case bigFiveTypes.REQUEST_FAILED:
       return state;

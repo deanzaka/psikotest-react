@@ -11,9 +11,11 @@ import {
   Button,
   LinearProgress,
   makeStyles,
+  Modal,
 } from "@material-ui/core";
 import BigFivePage from "./Page";
-import { setHasError } from "../../actions/bigFiveActions";
+import { setHasError, setEndDialogOpen } from "../../actions/bigFiveActions";
+import EndDialog from "./EndDialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
   },
   finishGray: {
     marginTop: "4px",
-    background: "linear-gradient(90deg, #F333333 0%, #5C5C5C 100%)",
+    background: "linear-gradient(90deg, #333333 0%, #5C5C5C 100%)",
     fontWeight: "bold",
     fontSize: "16px",
     textTransform: "capitalize",
@@ -103,6 +105,8 @@ const BigFiveForm = (props) => {
   const hasError = useSelector((state) => state.bigFive.hasError);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [progress, setProgress] = React.useState(0);
+  const endDialogOpen = useSelector((state) => state.bigFive.endDialogOpen);
+  const { history } = props;
 
   let complete = true;
   let limit = currentPage * 10;
@@ -150,8 +154,8 @@ const BigFiveForm = (props) => {
     }
   };
 
-  const onFinish = () => {
-    console.log("FINISH");
+  const onOpenDialogFinish = () => {
+    dispatch(setEndDialogOpen(true));
   };
 
   return (
@@ -231,8 +235,8 @@ const BigFiveForm = (props) => {
           <Button
             fullWidth
             variant="contained"
-            className={complete ? classes.finishGray : classes.finishGray}
-            onClick={onFinish}
+            className={complete ? classes.finish : classes.finishGray}
+            onClick={onOpenDialogFinish}
           >
             Selesai
           </Button>
@@ -243,6 +247,9 @@ const BigFiveForm = (props) => {
           </Typography>
         ) : null}
       </Container>
+      <Modal open={endDialogOpen}>
+        <EndDialog history={history} />
+      </Modal>
     </Container>
   );
 };
