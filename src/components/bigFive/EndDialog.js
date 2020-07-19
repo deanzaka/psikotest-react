@@ -26,11 +26,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const StartDialog = (props) => {
-  const classes = useStyles();
   const dispatch = useDispatch();
+  const classes = useStyles();
+  // const history = useHistory();
   const [error, setError] = React.useState("");
   const [openError, setOpenError] = React.useState(false);
-  // const { history } = props;
 
   const onFinish = async () => {
     // const err = await dispatch(getTemplateAction());

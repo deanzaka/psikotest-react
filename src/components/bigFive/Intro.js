@@ -209,7 +209,7 @@ const BigFiveIntro = (props) => {
         </Button>
       </Container>
       <Modal open={startDialogOpen}>
-        <StartDialog history={history} />
+        <StartDialog />
       </Modal>
     </Container>
   );

@@ -7,6 +7,7 @@ import {
   setStartDialogOpen,
 } from "../../actions/bigFiveActions";
 import Alert from "@material-ui/lab/Alert";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -28,19 +29,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const StartDialog = (props) => {
-  const classes = useStyles();
+const StartDialog = () => {
   const dispatch = useDispatch();
+  const classes = useStyles();
+  const history = useHistory();
   const [openError, setOpenError] = React.useState(false);
   const [error, setError] = React.useState("");
-  const { history } = props;
 
   const onStart = async () => {
     const err = await dispatch(getTemplateAction());
     if (err) {
       setError(err.toString());
+      return;
     }
 
+    dispatch(setStartDialogOpen(false));
     history.push("/big-five/form");
   };
 
