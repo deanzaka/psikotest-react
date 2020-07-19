@@ -40,6 +40,7 @@ const StartDialog = () => {
     const err = await dispatch(getTemplateAction());
     if (err) {
       setError(err.toString());
+      setOpenError(true);
       return;
     }
 
@@ -52,6 +53,7 @@ const StartDialog = () => {
       return;
     }
 
+    setError("");
     setOpenError(false);
   };
 
@@ -83,7 +85,14 @@ const StartDialog = () => {
         </Grid>
       </Grid>
       <Snackbar open={openError} autoHideDuration={6000} onClose={onCloseError}>
-        <Alert onClose={onCloseError} severity="error">
+        <Alert
+          style={{
+            position: "absolute",
+            top: "-53vh",
+          }}
+          onClose={onCloseError}
+          severity="error"
+        >
           {error}
         </Alert>
       </Snackbar>

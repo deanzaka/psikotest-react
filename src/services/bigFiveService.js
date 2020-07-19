@@ -1,13 +1,17 @@
+const axios = require("axios").default;
+
 export const getTemplateService = async () => {
-  const requestOptions = {
+  const options = {
+    url: `${process.env.REACT_APP_LOCAL_API_URL}/bigfive/template`,
     method: "GET",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
   };
 
-  const res = await fetch(
-    `${process.env.REACT_APP_LOCAL_API_URL}/bigfive/template`,
-    requestOptions
-  );
+  const res = await axios(options);
+  console.log(res);
   const template = await handleResponse(res);
   return template;
 };
