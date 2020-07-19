@@ -13,9 +13,9 @@ const initialState = template
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case bigFiveTypes.GET_TEMPLATE:
+    case bigFiveTypes.BF_GET_TEMPLATE:
       return { ...state, hasError: false, template: action.payload };
-    case bigFiveTypes.UPDATE_TEMPLATE:
+    case bigFiveTypes.BF_UPDATE_TEMPLATE:
       return {
         ...state,
         template: {
@@ -23,23 +23,23 @@ export default (state = initialState, action) => {
           doc: action.payload.doc,
         },
       };
-    case bigFiveTypes.SET_HAS_ERROR:
+    case bigFiveTypes.BF_SET_HAS_ERROR:
       return {
         ...state,
         hasError: action.payload,
       };
-    case bigFiveTypes.SET_START_DIALOG_OPEN:
+    case bigFiveTypes.BF_SET_START_DIALOG_OPEN:
       return {
         ...state,
         startDialogOpen: action.payload,
       };
-    case bigFiveTypes.SET_END_DIALOG_OPEN:
+    case bigFiveTypes.BF_SET_END_DIALOG_OPEN:
       return {
         ...state,
         endDialogOpen: action.payload,
       };
-    case bigFiveTypes.REQUEST_FAILED:
-      return state;
+    case bigFiveTypes.BF_CLEAR:
+      return {};
     default:
       return state;
   }
