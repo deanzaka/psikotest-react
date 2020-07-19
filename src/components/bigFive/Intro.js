@@ -9,16 +9,14 @@ import {
   Typography,
   Box,
   Button,
-  Snackbar,
   FormControl,
   RadioGroup,
   FormControlLabel,
   Radio,
+  Modal,
 } from "@material-ui/core";
 import { ArrowBack } from "@material-ui/icons";
-import { useDispatch } from "react-redux";
-import { getTemplateAction } from "../../actions/bigFiveActions";
-import Alert from "@material-ui/lab/Alert";
+import StartDialog from "./StartDialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -97,27 +95,14 @@ const defaultProps = {
 };
 
 const BigFiveIntro = (props) => {
-  const dispatch = useDispatch();
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [error, setError] = React.useState("");
+  const [openDialog, setOpenDialog] = React.useState(false);
   const { history } = props;
 
-  const onStart = async () => {
-    const err = await dispatch(getTemplateAction());
-    if (err) {
-      setError(err.toString());
-    }
-
-    props.history.push("/big-five/form");
+  const onOpenDialog = async () => {
+    setOpenDialog(true);
   };
-  const onClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
 
-    setOpen(false);
-  };
   return (
     <Container
       component="main"
@@ -214,16 +199,15 @@ const BigFiveIntro = (props) => {
           variant="contained"
           color="secondary"
           className={classes.start}
-          onClick={onStart}
+          // onClick={onStart}
+          onClick={onOpenDialog}
         >
           Mulai
         </Button>
       </Container>
-      <Snackbar open={open} autoHideDuration={6000} onClose={onClose}>
-        <Alert onClose={onClose} severity="error">
-          {error}
-        </Alert>
-      </Snackbar>
+      <Modal open={openDialog}>
+        <StartDialog history={history} />
+      </Modal>
     </Container>
   );
 };
