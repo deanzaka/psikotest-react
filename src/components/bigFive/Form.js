@@ -16,6 +16,7 @@ import {
 import BigFivePage from "./Page";
 import { setHasError, setEndDialogOpen } from "../../actions/bigFiveActions";
 import EndDialog from "./EndDialog";
+import TestTimer from "./TestTimer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.dark,
   },
   question: {
-    paddingTop: theme.spacing(5),
+    paddingTop: theme.spacing(6),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
     paddingBottom: theme.spacing(1),
@@ -185,6 +186,7 @@ const BigFiveForm = (props) => {
         color="primary"
         value={progress}
       ></LinearProgress>
+      <TestTimer></TestTimer>
       <Grid container className={classes.question}>
         <Grid item xs={6}>
           <Typography>Saya adalah orang yang</Typography>
