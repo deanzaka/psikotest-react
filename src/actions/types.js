@@ -1,3 +1,7 @@
+export const rootTypes = {
+  DESTROY_SESSION: "DESTROY_SESSION",
+};
+
 export const loginTypes = {
   LOGIN_REQUEST: "LOGIN_REQUEST",
   LOGIN_SUCCESS: "LOGIN_SUCCESS",

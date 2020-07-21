@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import {
   AppBar,
   ClickAwayListener,
@@ -16,6 +16,8 @@ import {
 import { Menu } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import logo from "../../assets/images/HeaderLogo.svg";
+import { useDispatch } from "react-redux";
+import { rootTypes } from "../../actions/types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +47,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = (props) => {
   const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -64,7 +68,8 @@ const Header = (props) => {
     onClose(e);
 
     localStorage.clear();
-    props.history.push("/login");
+    dispatch({ type: rootTypes.DESTROY_SESSION });
+    history.push("/login");
   };
 
   function onListKeyDown(event) {

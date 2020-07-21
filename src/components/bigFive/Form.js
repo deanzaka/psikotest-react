@@ -106,7 +106,6 @@ const BigFiveForm = (props) => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [progress, setProgress] = React.useState(0);
   const endDialogOpen = useSelector((state) => state.bigFive.endDialogOpen);
-  const { history } = props;
 
   let complete = true;
   let limit = currentPage * 10;
@@ -247,8 +246,8 @@ const BigFiveForm = (props) => {
           </Typography>
         ) : null}
       </Container>
-      <Modal open={endDialogOpen}>
-        <EndDialog history={history} />
+      <Modal open={endDialogOpen ? endDialogOpen : false}>
+        <EndDialog />
       </Modal>
     </Container>
   );
