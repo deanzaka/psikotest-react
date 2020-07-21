@@ -107,17 +107,20 @@ const BigFiveForm = (props) => {
   const [progress, setProgress] = React.useState(0);
   const endDialogOpen = useSelector((state) => state.bigFive.endDialogOpen);
 
-  let complete = true;
-  let limit = currentPage * 10;
-  if (limit > template.doc.length) {
-    limit = template.doc.length;
-  }
-  const currentForm = template.doc.slice((currentPage - 1) * 10, limit);
-  const empties = currentForm.filter((item) => {
-    return typeof item.score === "undefined";
-  });
-  if (empties.length > 0) {
-    complete = false;
+  let complete = false;
+  if (template) {
+    complete = true;
+    let limit = currentPage * 10;
+    if (limit > template.doc.length) {
+      limit = template.doc.length;
+    }
+    const currentForm = template.doc.slice((currentPage - 1) * 10, limit);
+    const empties = currentForm.filter((item) => {
+      return typeof item.score === "undefined";
+    });
+    if (empties.length > 0) {
+      complete = false;
+    }
   }
 
   const onNext = () => {
@@ -154,7 +157,12 @@ const BigFiveForm = (props) => {
   };
 
   const onOpenDialogFinish = () => {
-    dispatch(setEndDialogOpen(true));
+    if (complete) {
+      dispatch(setEndDialogOpen(true));
+    } else {
+      dispatch(setHasError(true));
+      return;
+    }
   };
 
   return (

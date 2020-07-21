@@ -1,4 +1,7 @@
-import { getTemplateService } from "../services/bigFiveService";
+import {
+  getTemplateService,
+  submitTemplateService,
+} from "../services/bigFiveService";
 import { bigFiveTypes } from "./types";
 
 export const getTemplateAction = () => async (dispatch) => {
@@ -18,6 +21,11 @@ export const getTemplateAction = () => async (dispatch) => {
 export const updateTemplateAction = (template) => (dispatch) => {
   localStorage.setItem("template", JSON.stringify(template));
   dispatch({ type: bigFiveTypes.BF_UPDATE_TEMPLATE, payload: template });
+};
+
+export const submitTemplateAction = async (token, template) => {
+  await submitTemplateService(token, template);
+  localStorage.removeItem("template");
 };
 
 export const setStartDialogOpen = (startDialogOpen) => (dispatch) => {

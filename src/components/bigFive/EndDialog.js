@@ -1,9 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import { Typography, Grid, Button, Snackbar } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-import { setEndDialogOpen } from "../../actions/bigFiveActions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setEndDialogOpen,
+  submitTemplateAction,
+} from "../../actions/bigFiveActions";
 import Alert from "@material-ui/lab/Alert";
+import { useHistory } from "react-router-dom";
+import { bigFiveTypes } from "../../actions/types";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -28,19 +33,24 @@ const useStyles = makeStyles((theme) => ({
 const StartDialog = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  // const history = useHistory();
+  const history = useHistory();
+  const token = useSelector((state) => state.login.user.token);
+  const template = useSelector((state) => state.bigFive.template);
   const [error, setError] = React.useState("");
   const [openError, setOpenError] = React.useState(false);
+  const [openThanks, setThanks] = React.useState(false);
 
   const onFinish = async () => {
-    // const err = await dispatch(getTemplateAction());
-    // if (err) {
-    //   setError(err.toString());
-    // }
+    const err = await submitTemplateAction(token, template);
+    if (err) {
+      setError(err.toString());
+    }
+    setThanks(true);
+  };
 
-    // history.push("/big-five/form");
-    setError("");
-    console.log("FINISH");
+  const onBack = async () => {
+    dispatch({ type: bigFiveTypes.BF_CLEAR });
+    history.push("/");
   };
 
   const onCloseError = (event, reason) => {
@@ -51,40 +61,64 @@ const StartDialog = (props) => {
     setOpenError(false);
   };
 
-  return (
-    <div className={classes.paper}>
-      <Typography className={classes.title}>
-        Apakah anda yakin untuk mengakhiri tes?
-      </Typography>
-      <Grid container>
-        <Grid item xs={6}>
-          <Button
-            fullWidth
-            variant="outlined"
-            color="secondary"
-            onClick={onFinish}
-          >
-            Iya
-          </Button>
+  if (openThanks) {
+    return (
+      <div className={classes.paper}>
+        <Typography className={classes.title}>Terima kasih</Typography>
+        <Button fullWidth variant="contained" color="primary" onClick={onBack}>
+          Kembali ke menu utama
+        </Button>
+        <Snackbar
+          open={openError}
+          autoHideDuration={6000}
+          onClose={onCloseError}
+        >
+          <Alert onClose={onCloseError} severity="error">
+            {error}
+          </Alert>
+        </Snackbar>
+      </div>
+    );
+  } else {
+    return (
+      <div className={classes.paper}>
+        <Typography className={classes.title}>
+          Apakah anda yakin untuk mengakhiri tes?
+        </Typography>
+        <Grid container>
+          <Grid item xs={6}>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="secondary"
+              onClick={onFinish}
+            >
+              Iya
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="primary"
+              onClick={() => dispatch(setEndDialogOpen(false))}
+            >
+              Tidak
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <Button
-            fullWidth
-            variant="outlined"
-            color="primary"
-            onClick={() => dispatch(setEndDialogOpen(false))}
-          >
-            Tidak
-          </Button>
-        </Grid>
-      </Grid>
-      <Snackbar open={openError} autoHideDuration={6000} onClose={onCloseError}>
-        <Alert onClose={onCloseError} severity="error">
-          {error}
-        </Alert>
-      </Snackbar>
-    </div>
-  );
+        <Snackbar
+          open={openError}
+          autoHideDuration={6000}
+          onClose={onCloseError}
+        >
+          <Alert onClose={onCloseError} severity="error">
+            {error}
+          </Alert>
+        </Snackbar>
+      </div>
+    );
+  }
 };
 
 export default StartDialog;
