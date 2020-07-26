@@ -32,7 +32,7 @@ const TimeUpDialog = () => {
 
   const onBack = async () => {
     dispatch({ type: bigFiveTypes.BF_CLEAR });
-    localStorage.removeItem("endTime");
+    localStorage.removeItem("startTime");
     history.push("/");
   };
 

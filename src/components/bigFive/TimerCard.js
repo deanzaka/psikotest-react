@@ -1,8 +1,6 @@
 import React from "react";
 import Timer from "react-compound-timer";
 import { Paper, makeStyles } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
-import { setTimeUp, submitTemplateAction } from "../../actions/bigFiveActions";
 
 const useStyles = makeStyles((theme) => ({
   timer: {
@@ -17,25 +15,13 @@ const useStyles = makeStyles((theme) => ({
 
 const TimerCard = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.login.user.token);
-  const template = useSelector((state) => state.bigFive.template);
 
-  let endTime = JSON.parse(localStorage.getItem("endTime"));
-  if (!endTime) {
-    endTime = Date.now() + 60000 * 30;
-    localStorage.setItem("endTime", endTime);
+  let startTime = JSON.parse(localStorage.getItem("startTime"));
+  if (!startTime) {
+    startTime = Date.now();
+    localStorage.setItem("startTime", JSON.stringify(startTime));
   }
-  let timer = endTime - Date.now();
-  let cp = [
-    {
-      time: 0,
-      callback: async () => {
-        await submitTemplateAction(token, template);
-        dispatch(setTimeUp(true));
-      },
-    },
-  ];
+  let timer = Date.now() - startTime;
 
   return (
     <div className={classes.timer}>
@@ -43,13 +29,12 @@ const TimerCard = () => {
         <Timer
           initialTime={timer}
           lastUnit="h"
-          direction="backward"
+          direction="forward"
           formatValue={(number) => ("00" + number).slice(-2)}
-          checkpoints={cp}
         >
           {() => (
             <React.Fragment>
-              Waktu tersisa: <Timer.Minutes />:<Timer.Seconds />
+              Waktu berjalan: <Timer.Minutes />:<Timer.Seconds />
             </React.Fragment>
           )}
         </Timer>
