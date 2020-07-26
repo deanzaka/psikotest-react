@@ -42,6 +42,13 @@ export const setEndDialogOpen = (endDialogOpen) => (dispatch) => {
   });
 };
 
+export const setTimeUp = (timeUp) => (dispatch) => {
+  dispatch({
+    type: bigFiveTypes.BF_SET_TIME_UP,
+    payload: timeUp,
+  });
+};
+
 export const setHasError = (hasError) => (dispatch) => {
   dispatch({ type: bigFiveTypes.BF_SET_HAS_ERROR, payload: hasError });
 };

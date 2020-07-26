@@ -7,6 +7,7 @@ const initialState = template
       hasError: false,
       startDialogOpen: false,
       endDialogOpen: false,
+      timeUp: false,
       template,
     }
   : {};
@@ -37,6 +38,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         endDialogOpen: action.payload,
+      };
+    case bigFiveTypes.BF_SET_TIME_UP:
+      return {
+        ...state,
+        timeUp: action.payload,
       };
     case bigFiveTypes.BF_CLEAR:
       return {};

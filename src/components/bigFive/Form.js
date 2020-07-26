@@ -16,7 +16,8 @@ import {
 import BigFivePage from "./Page";
 import { setHasError, setEndDialogOpen } from "../../actions/bigFiveActions";
 import EndDialog from "./EndDialog";
-import TestTimer from "./TestTimer";
+import TimerCard from "./TimerCard";
+import TimeUpDialog from "./TimeUpDialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -104,9 +105,10 @@ const BigFiveForm = (props) => {
   const classes = useStyles();
   const template = useSelector((state) => state.bigFive.template);
   const hasError = useSelector((state) => state.bigFive.hasError);
+  const timeUp = useSelector((state) => state.bigFive.timeUp);
+  const endDialogOpen = useSelector((state) => state.bigFive.endDialogOpen);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [progress, setProgress] = React.useState(0);
-  const endDialogOpen = useSelector((state) => state.bigFive.endDialogOpen);
 
   let complete = false;
   if (template) {
@@ -186,7 +188,7 @@ const BigFiveForm = (props) => {
         color="primary"
         value={progress}
       ></LinearProgress>
-      <TestTimer></TestTimer>
+      <TimerCard></TimerCard>
       <Grid container className={classes.question}>
         <Grid item xs={6}>
           <Typography>Saya adalah orang yang</Typography>
@@ -258,6 +260,9 @@ const BigFiveForm = (props) => {
       </Container>
       <Modal open={endDialogOpen ? endDialogOpen : false}>
         <EndDialog />
+      </Modal>
+      <Modal open={timeUp ? timeUp : false}>
+        <TimeUpDialog />
       </Modal>
     </Container>
   );
