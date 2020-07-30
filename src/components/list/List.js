@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   greetGrid: {
     paddingTop: theme.spacing(5),
+    paddingBottom: theme.spacing(5),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
   },
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.dark,
   },
   testTitle: {
-    paddingTop: theme.spacing(8),
+    paddingTop: theme.spacing(3),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
     fontWeight: 500,
@@ -161,6 +162,29 @@ const List = (props) => {
               <Typography className={classes.testDetails}>
                 Tes Psikologi yang digunakan untuk mengukur 5 faktor utama yang
                 mempengaruhi kepribadian
+              </Typography>
+            </Grid>
+          </Grid>
+        </CardActionArea>
+      </Card>
+      <Typography className={classes.testTitle}>Tes Minat Bakat</Typography>
+      <Card className={classes.card}>
+        <CardActionArea onClick={() => history.push("/rmib")}>
+          <Grid container>
+            <Grid item xs={3}>
+              <CardMedia
+                className={classes.media}
+                image={rectangle}
+                title="Rectangle"
+              />
+            </Grid>
+            <Grid item xs={9}>
+              <Typography className={classes.testName}>
+                Rothwell Miller Interest Blank
+              </Typography>
+              <Typography className={classes.testDetails}>
+                Tes Psikologi yang digunakan untuk melihat minat, stereotip, dan
+                sikap seorang individu pada sebuah pekerjaan
               </Typography>
             </Grid>
           </Grid>

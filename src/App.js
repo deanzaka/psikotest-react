@@ -13,6 +13,8 @@ import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import List from "./components/list/List";
 import BigFiveIntro from "./components/bigFive/Intro";
 import BigFiveForm from "./components/bigFive/Form";
+import RMIBIntro from "./components/rmib/Intro";
+import RMIBForm from "./components/rmib/Form";
 
 const theme = createMuiTheme({
   palette: {
@@ -75,6 +77,16 @@ const App = () => {
                   exact
                   path="/big-five/form"
                   component={BigFiveForm}
+                ></ProtectedRoute>
+                <ProtectedRoute
+                  exact
+                  path="/rmib"
+                  component={RMIBIntro}
+                ></ProtectedRoute>
+                <ProtectedRoute
+                  exact
+                  path="/rmib/form"
+                  component={RMIBForm}
                 ></ProtectedRoute>
                 {/* <ProtectedRoute
                   exact

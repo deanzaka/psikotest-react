@@ -1,11 +1,13 @@
 import { combineReducers } from "redux";
 import loginReducer from "./loginReducer";
 import bigFiveReducer from "./bigFiveReducer";
+import rmibReducer from "./rmibReducer";
 import { rootTypes } from "../actions/types";
 
 const appReducer = combineReducers({
   login: loginReducer,
   bigFive: bigFiveReducer,
+  rmib: rmibReducer,
 });
 
 const rootReducer = (state, action) => {
