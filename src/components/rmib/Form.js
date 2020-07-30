@@ -17,6 +17,7 @@ import { setHasError, setEndDialogOpen } from "../../actions/rmibActions";
 import EndDialog from "./EndDialog";
 import TimerCard from "./TimerCard";
 import TimeUpDialog from "./TimeUpDialog";
+import RMIBPage from "./Page";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,11 +37,12 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     color: theme.palette.primary.dark,
   },
-  question: {
+  tableHeader: {
     paddingTop: theme.spacing(6),
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
     paddingBottom: theme.spacing(1),
+    textAlign: "center",
   },
   next: {
     marginTop: "4px",
@@ -96,53 +98,31 @@ const RMIBForm = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const template = useSelector((state) => state.rmib.template);
-  const hasError = useSelector((state) => state.rmib.hasError);
   const timeUp = useSelector((state) => state.rmib.timeUp);
   const endDialogOpen = useSelector((state) => state.rmib.endDialogOpen);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [progress, setProgress] = React.useState(0);
 
-  let complete = false;
-  if (template) {
-    complete = true;
-    let limit = currentPage * 10;
-    if (limit > template.doc.length) {
-      limit = template.doc.length;
-    }
-    const currentForm = template.doc.slice((currentPage - 1) * 10, limit);
-    const empties = currentForm.filter((item) => {
-      return typeof item.score === "undefined";
-    });
-    if (empties.length > 0) {
-      complete = false;
-    }
-  }
-
   const onNext = () => {
-    let maxPage = template.doc.length / 10;
-    if (template.doc.length % 10 > 0) {
+    let maxPage = template.doc.length / 12;
+    if (template.doc.length % 12 > 0) {
       maxPage++;
     }
     const progress = ((currentPage + 1) * 100) / maxPage;
 
-    if (complete) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      if (template.doc.length > currentPage * 10) {
-        setCurrentPage(currentPage + 1);
-        setProgress(progress);
-        dispatch(setHasError(false));
-      }
-    } else {
-      dispatch(setHasError(true));
-      return;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (template.doc.length > currentPage * 12) {
+      setCurrentPage(currentPage + 1);
+      setProgress(progress);
+      dispatch(setHasError(false));
     }
   };
 
   const onBack = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     if (currentPage > 1) {
-      let maxPage = template.doc.length / 10;
-      if (template.doc.length % 10 > 0) {
+      let maxPage = template.doc.length / 12;
+      if (template.doc.length % 12 > 0) {
         maxPage++;
       }
       const progress = ((currentPage - 1) * 100) / maxPage;
@@ -152,12 +132,7 @@ const RMIBForm = (props) => {
   };
 
   const onOpenDialogFinish = () => {
-    if (complete) {
-      dispatch(setEndDialogOpen(true));
-    } else {
-      dispatch(setHasError(true));
-      return;
-    }
+    dispatch(setEndDialogOpen(true));
   };
 
   return (
@@ -181,7 +156,15 @@ const RMIBForm = (props) => {
         value={progress}
       ></LinearProgress>
       <TimerCard></TimerCard>
-      {/* {template ? <RMIBPage page={currentPage}></RMIBPage> : null} */}
+      <Grid container className={classes.tableHeader}>
+        <Grid item xs={4}>
+          <Typography style={{ fontWeight: 500 }}>Peringkat</Typography>
+        </Grid>
+        <Grid item xs={8}>
+          <Typography style={{ fontWeight: 500 }}>Profesi</Typography>
+        </Grid>
+      </Grid>
+      {template ? <RMIBPage page={currentPage}></RMIBPage> : null}
 
       <Container
         style={{
@@ -209,11 +192,11 @@ const RMIBForm = (props) => {
             </Grid>
           </Button>
         ) : null}
-        {template && template.doc.length > currentPage * 10 ? (
+        {template && template.doc.length > currentPage * 12 ? (
           <Button
             fullWidth
             variant="contained"
-            className={complete ? classes.next : classes.nextGray}
+            className={classes.next}
             onClick={onNext}
           >
             <Grid container>
@@ -230,17 +213,12 @@ const RMIBForm = (props) => {
           <Button
             fullWidth
             variant="contained"
-            className={complete ? classes.finish : classes.finishGray}
+            className={classes.finish}
             onClick={onOpenDialogFinish}
           >
             Selesai
           </Button>
         )}
-        {hasError ? (
-          <Typography className={classes.errorText}>
-            *Ada yang belom terisi, periksa kembali pilihanmu
-          </Typography>
-        ) : null}
       </Container>
       <Modal open={endDialogOpen ? endDialogOpen : false}>
         <EndDialog />

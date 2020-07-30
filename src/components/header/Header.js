@@ -67,7 +67,6 @@ const Header = (props) => {
   const onLogout = (e) => {
     onClose(e);
 
-    localStorage.clear();
     dispatch({ type: rootTypes.DESTROY_SESSION });
     history.push("/login");
   };

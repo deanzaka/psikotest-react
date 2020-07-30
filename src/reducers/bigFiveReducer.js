@@ -1,6 +1,6 @@
 import { bigFiveTypes } from "../actions/types";
 
-let template = JSON.parse(localStorage.getItem("template"));
+let template = JSON.parse(localStorage.getItem("bf-template"));
 const initialState = template
   ? {
       complete: false,

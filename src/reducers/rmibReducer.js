@@ -1,17 +1,23 @@
 import { rmibTypes } from "../actions/types";
 
-let template = JSON.parse(localStorage.getItem("template"));
+let template = JSON.parse(localStorage.getItem("rmib-template"));
 const initialState = template
   ? {
       hasError: false,
       startDialogOpen: false,
       endDialogOpen: false,
       timeUp: false,
+      currentData: [],
+      template,
     }
   : {};
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case rmibTypes.RMIB_GET_TEMPLATE:
+      return { ...state, hasError: false, template: action.payload };
+    case rmibTypes.RMIB_SET_CURRENT_DATA:
+      return { ...state, currentData: action.payload };
     case rmibTypes.RMIB_SET_HAS_ERROR:
       return {
         ...state,

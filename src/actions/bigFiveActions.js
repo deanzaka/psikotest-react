@@ -7,7 +7,7 @@ import { bigFiveTypes } from "./types";
 export const getTemplateAction = () => async (dispatch) => {
   try {
     const template = await getTemplateService();
-    localStorage.setItem("template", JSON.stringify(template));
+    localStorage.setItem("bf-template", JSON.stringify(template));
     dispatch({ type: bigFiveTypes.BF_GET_TEMPLATE, payload: template });
   } catch (err) {
     dispatch({
@@ -19,13 +19,13 @@ export const getTemplateAction = () => async (dispatch) => {
 };
 
 export const updateTemplateAction = (template) => (dispatch) => {
-  localStorage.setItem("template", JSON.stringify(template));
+  localStorage.setItem("bf-template", JSON.stringify(template));
   dispatch({ type: bigFiveTypes.BF_UPDATE_TEMPLATE, payload: template });
 };
 
 export const submitTemplateAction = async (token, template) => {
   await submitTemplateService(token, template);
-  localStorage.removeItem("template");
+  localStorage.removeItem("bf-template");
 };
 
 export const setStartDialogOpen = (startDialogOpen) => (dispatch) => {

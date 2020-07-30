@@ -4,7 +4,7 @@ import { rmibTypes } from "./types";
 export const getTemplateAction = () => async (dispatch) => {
   try {
     const template = await getTemplateService();
-    localStorage.setItem("template", JSON.stringify(template));
+    localStorage.setItem("rmib-template", JSON.stringify(template));
     dispatch({ type: rmibTypes.RMIB_GET_TEMPLATE, payload: template });
   } catch (err) {
     dispatch({
@@ -13,6 +13,13 @@ export const getTemplateAction = () => async (dispatch) => {
     });
     return err;
   }
+};
+
+export const setCurrentData = (currentData) => (dispatch) => {
+  dispatch({
+    type: rmibTypes.RMIB_SET_CURRENT_DATA,
+    payload: currentData,
+  });
 };
 
 export const setStartDialogOpen = (startDialogOpen) => (dispatch) => {
