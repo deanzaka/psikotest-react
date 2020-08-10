@@ -15,11 +15,9 @@ export const getTemplateAction = () => async (dispatch) => {
   }
 };
 
-export const setCurrentData = (currentData) => (dispatch) => {
-  dispatch({
-    type: rmibTypes.RMIB_SET_CURRENT_DATA,
-    payload: currentData,
-  });
+export const updateTemplateAction = (template) => (dispatch) => {
+  localStorage.setItem("rmib-template", JSON.stringify(template));
+  dispatch({ type: rmibTypes.RMIB_UPDATE_TEMPLATE, payload: template });
 };
 
 export const setStartDialogOpen = (startDialogOpen) => (dispatch) => {

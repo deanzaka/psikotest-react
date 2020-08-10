@@ -7,7 +7,6 @@ const initialState = template
       startDialogOpen: false,
       endDialogOpen: false,
       timeUp: false,
-      currentData: [],
       template,
     }
   : {};
@@ -16,8 +15,14 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case rmibTypes.RMIB_GET_TEMPLATE:
       return { ...state, hasError: false, template: action.payload };
-    case rmibTypes.RMIB_SET_CURRENT_DATA:
-      return { ...state, currentData: action.payload };
+    case rmibTypes.RMIB_UPDATE_TEMPLATE:
+      return {
+        ...state,
+        template: {
+          _id: action.payload._id,
+          doc: action.payload.doc,
+        },
+      };
     case rmibTypes.RMIB_SET_HAS_ERROR:
       return {
         ...state,

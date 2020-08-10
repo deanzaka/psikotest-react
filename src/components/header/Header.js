@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter, useHistory } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import {
   AppBar,
   ClickAwayListener,
@@ -45,9 +45,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = (props) => {
+const Header = () => {
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -68,7 +67,7 @@ const Header = (props) => {
     onClose(e);
 
     dispatch({ type: rootTypes.DESTROY_SESSION });
-    history.push("/login");
+    window.location.reload(false);
   };
 
   function onListKeyDown(event) {
