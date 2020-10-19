@@ -1,6 +1,5 @@
-// TODO: unused for now, will need to restructure to use hook
-
-import React, { Component } from "react";
+import React from "react";
+import { makeStyles } from "@material-ui/styles";
 import {
   Container,
   CssBaseline,
@@ -9,11 +8,9 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
-import { withStyles } from "@material-ui/styles";
-import { connect } from "react-redux";
 import { ArrowBack, Done } from "@material-ui/icons";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -34,44 +31,42 @@ const styles = (theme) => ({
     fontWeight: 500,
     lineHeight: 1.5,
   },
-});
+}));
 
-class Profile extends Component {
-  render() {
-    const { classes } = this.props;
-    return (
-      <Container
-        component="main"
-        style={{
-          padding: 0,
-        }}
-      >
-        <CssBaseline />
-        <AppBar position="relative" color="default" className={classes.box}>
-          <Toolbar>
-            <Grid container className={classes.headerGrid}>
-              <Grid item xs={1}>
-                <ArrowBack className={classes.headerIcon} />
-              </Grid>
-              <Grid item xs={10}>
-                <Typography className={classes.headerTitle}>
-                  Ubah profil
-                </Typography>
-              </Grid>
-              <Grid item xs={1}>
-                <Done className={classes.headerIcon} />
-              </Grid>
+const Profile = (props) => {
+  const classes = useStyles();
+  const { history } = props;
+
+  return (
+    <Container
+      component="main"
+      style={{
+        padding: 0,
+      }}
+    >
+      <CssBaseline />
+      <AppBar position="relative" color="default" className={classes.box}>
+        <Toolbar>
+          <Grid container className={classes.headerGrid}>
+            <Grid item xs={1}>
+              <ArrowBack
+                className={classes.headerIcon}
+                onClick={() => history.goBack()}
+              />
             </Grid>
-          </Toolbar>
-        </AppBar>
-      </Container>
-    );
-  }
-}
+            <Grid item xs={10}>
+              <Typography className={classes.headerTitle}>
+                Ubah profil
+              </Typography>
+            </Grid>
+            <Grid item xs={1}>
+              <Done className={classes.headerIcon} />
+            </Grid>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+    </Container>
+  );
+};
 
-const mapStateToProps = (state) => ({
-  loggedIn: state.login.loggedIn,
-  user: state.login.user,
-});
-
-export default withStyles(styles)(connect(mapStateToProps)(Profile));
+export default Profile;

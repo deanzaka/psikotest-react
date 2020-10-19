@@ -167,7 +167,7 @@ const List = (props) => {
           </Grid>
         </CardActionArea>
       </Card>
-      <Typography className={classes.testTitle}>Tes Minat Bakat</Typography>
+      {/* <Typography className={classes.testTitle}>Tes Minat Bakat</Typography>
       <Card className={classes.card}>
         <CardActionArea onClick={() => history.push("/rmib")}>
           <Grid container>
@@ -189,7 +189,7 @@ const List = (props) => {
             </Grid>
           </Grid>
         </CardActionArea>
-      </Card>
+      </Card> */}
     </div>
   );
 };
