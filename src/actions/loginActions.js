@@ -1,4 +1,4 @@
-import { loginService } from "../services/userService";
+import { loginService, updateProfileService } from "../services/userService";
 import { loginTypes } from "./types";
 
 export const loginAction = (_id, password) => async (dispatch) => {
@@ -10,6 +10,16 @@ export const loginAction = (_id, password) => async (dispatch) => {
     return null;
   } catch (err) {
     dispatch({ type: loginTypes.LOGIN_FAILED, payload: err.toString() });
+    return err;
+  }
+};
+
+export const updateProfileAction = (token, userData) => async (dispatch) => {
+  try {
+    await updateProfileService(token, userData);
+    localStorage.setItem("user", JSON.stringify(userData));
+    dispatch({ type: loginTypes.PROFILE_UPDATE, payload: userData });
+  } catch (err) {
     return err;
   }
 };

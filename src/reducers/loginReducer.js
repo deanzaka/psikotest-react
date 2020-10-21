@@ -11,6 +11,8 @@ export default (state = initialState, action) => {
       return { ...state, loggedIn: true, user: action.payload };
     case loginTypes.LOGIN_FAILED:
       return {};
+    case loginTypes.UPDATE_PROFILE:
+      return { ...state, user: action.payload };
     default:
       return state;
   }

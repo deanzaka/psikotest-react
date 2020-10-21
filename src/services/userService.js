@@ -1,3 +1,24 @@
+const axios = require("axios").default;
+
+export const updateProfileService = async (token, userData) => {
+  const options = {
+    url: `${process.env.REACT_APP_LOCAL_API_URL}/users`,
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+      Authorization: `Bearer ${token}`,
+    },
+    data: userData,
+  };
+
+  const res = await axios(options);
+  if (res.status !== 200) {
+    return Promise.reject(res.statusText);
+  }
+  return res.data;
+};
+
 export const loginService = async (_id, password) => {
   const requestOptions = {
     method: "POST",

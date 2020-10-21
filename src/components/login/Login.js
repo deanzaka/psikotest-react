@@ -164,7 +164,7 @@ const Login = (props) => {
           >
             Masuk
           </Button>
-          <Typography align="right">Lupa kata sandi?</Typography>
+          {/* <Typography align="right">Lupa kata sandi?</Typography> */}
         </form>
       </div>
       <Snackbar open={open} autoHideDuration={6000} onClose={onClose}>

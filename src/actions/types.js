@@ -7,6 +7,7 @@ export const loginTypes = {
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
   LOGIN_FAILED: "LOGIN_FAILED",
   LOGOUT_REQUEST: "LOGOUT_REQUEST",
+  PROFILE_UPDATE: "PROFILE_UPDATE",
 };
 
 export const bigFiveTypes = {
