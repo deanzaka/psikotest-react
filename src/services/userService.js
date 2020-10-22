@@ -1,6 +1,8 @@
 const axios = require("axios").default;
 
-export const updateProfileService = async (token, userData) => {
+export const updateProfileService = async (userData) => {
+  const token = userData.token;
+  delete userData.token;
   const options = {
     url: `${process.env.REACT_APP_LOCAL_API_URL}/users`,
     method: "PUT",

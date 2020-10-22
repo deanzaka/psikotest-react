@@ -77,7 +77,6 @@ const useStyles = makeStyles((theme) => ({
 const Profile = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { history } = props;
   const user = useSelector((state) => state.login.user);
   const token = useSelector((state) => state.login.user.token);
 
@@ -176,7 +175,7 @@ const Profile = (props) => {
     }
 
     const err = await dispatch(
-      updateProfileAction(token, {
+      updateProfileAction({
         _id: user._id,
         name: name,
         address: address,
@@ -185,6 +184,7 @@ const Profile = (props) => {
         gender: gender,
         education: education,
         occupation: occupation,
+        token: token,
       })
     );
 
@@ -209,7 +209,7 @@ const Profile = (props) => {
             <Grid item xs={1}>
               <ArrowBack
                 className={classes.headerIcon}
-                onClick={() => history.goBack()}
+                onClick={() => props.history.goBack()}
               />
             </Grid>
             <Grid item xs={11}>

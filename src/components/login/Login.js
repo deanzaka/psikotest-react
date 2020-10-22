@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: {
     marginTop: theme.spacing(1),
-    width: theme.spacing(20),
+    width: theme.spacing(32),
     height: "4px",
     backgroundColor: "#333333",
     borderRadius: "2px",
@@ -100,9 +100,18 @@ const Login = (props) => {
 
     const err = await dispatch(loginAction(email, password));
     if (err) {
-      setErrorEmail("");
-      setErrorPassword("");
-      setOpen(true);
+      if (err === "incomplete") {
+        setEmail("");
+        setPassword("");
+        setErrorEmail("");
+        setErrorPassword("");
+
+        props.history.push("/profile");
+      } else {
+        setErrorEmail("");
+        setErrorPassword("");
+        setOpen(true);
+      }
     } else {
       setEmail("");
       setPassword("");
@@ -124,7 +133,7 @@ const Login = (props) => {
       <CssBaseline />
       <div className={classes.paper}>
         <img src={logo} alt="Logo" />
-        <Typography className={classes.login}>Masuk</Typography>
+        <Typography className={classes.login}>Selamat Datang</Typography>
         <Divider className={classes.divider} variant="middle" />
         <form className={classes.form} onSubmit={onSubmit} noValidate>
           <TextField
