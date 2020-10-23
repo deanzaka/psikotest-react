@@ -17,6 +17,7 @@ import { Menu } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import logo from "../../assets/images/HeaderLogo.svg";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { rootTypes } from "../../actions/types";
 
 const useStyles = makeStyles((theme) => ({
@@ -47,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const classes = useStyles();
+  const history = useHistory();
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -61,6 +63,12 @@ const Header = () => {
     }
 
     setOpen(false);
+  };
+
+  const onEditProfile = (e) => {
+    onClose(e);
+
+    history.push("/profile");
   };
 
   const onLogout = (e) => {
@@ -136,11 +144,14 @@ const Header = () => {
                       id="menu-list-grow"
                       onKeyDown={onListKeyDown}
                     >
-                      {/* <MenuItem className={classes.menuItem} onClick={onClose}>
-                        Edit Profile
-                      </MenuItem> */}
+                      <MenuItem
+                        className={classes.menuItem}
+                        onClick={onEditProfile}
+                      >
+                        Edit Profil
+                      </MenuItem>
                       <MenuItem className={classes.menuItem} onClick={onLogout}>
-                        Logout
+                        Keluar
                       </MenuItem>
                     </MenuList>
                   </ClickAwayListener>
