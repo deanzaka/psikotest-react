@@ -136,22 +136,15 @@ const BigFiveIntro = (props) => {
       </Typography>
       <Typography className={classes.paragraph}>
         <b>Introduksi. </b>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac ex
-        justo. Nulla elementum mattis neque et tincidunt. Donec vestibulum
-        interdum nisl, quis aliquam lacus lobortis vitae. Suspendisse dapibus
-        molestie ipsum, ut rutrum enim luctus nec. Morbi finibus laoreet nulla
-        tristique tempus. Nullam eget maximus enim. Quisque viverra ligula
-        rutrum quam hendrerit lobortis. Donec ut velit urna. Vestibulum tempus
-        faucibus dictum.
+        Berikut ini merupakan tes yang dapat memberikan gambaran mengenai
+        kecenderungan kepribadian. Setiap orang memiliki kecenderungan yang
+        berbeda-beda, sehingga tidak ada jawaban yang salah dalam tes ini.
       </Typography>
       <Typography className={classes.paragraph}>
         <b>Petunjuk Pengerjaan. </b>
-        Vivamus diam mi, aliquam vel dapibus ac, vulputate eu nisi. Nunc
-        hendrerit, arcu eget varius interdum, tortor neque tempor nibh, non
-        tincidunt velit lorem a diam. Nunc lorem nisi, fringilla nec lobortis
-        non, maximus et velit. Phasellus condimentum vestibulum sapien vel
-        imperdiet. Sed gravida libero at leo auctor, vel dignissim turpis
-        gravida. Sed et condimentum dolor, id semper nibh.
+        Baca dengan seksama setiap pernyataan dan pilihlah yang paling
+        menggambarkan dan sesuai dengan diri Anda dengan memilih salah satu dari
+        pilihan jawaban yang tersedia pada setiap nomornya.
       </Typography>
       <Typography className={classes.legendTitle}>Ilustrasi</Typography>
       <Grid container className={classes.question}>

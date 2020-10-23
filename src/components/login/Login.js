@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@material-ui/core";
 
-import logo from "../../assets/images/Logo.svg";
+import logo from "../../assets/images/Logo.png";
 import { makeStyles } from "@material-ui/styles";
 
 const Alert = (props) => {
@@ -20,6 +20,9 @@ const Alert = (props) => {
 };
 
 const useStyles = makeStyles((theme) => ({
+  logo: {
+    width: theme.spacing(40),
+  },
   paper: {
     paddingTop: theme.spacing(10),
     paddingBottom: theme.spacing(6),
@@ -28,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   login: {
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(14),
     fontWeight: "500",
     fontSize: "32px",
     lineHeight: "40px",
@@ -132,7 +135,7 @@ const Login = (props) => {
     >
       <CssBaseline />
       <div className={classes.paper}>
-        <img src={logo} alt="Logo" />
+        <img className={classes.logo} src={logo} alt="Logo" />
         <Typography className={classes.login}>Selamat Datang</Typography>
         <Divider className={classes.divider} variant="middle" />
         <form className={classes.form} onSubmit={onSubmit} noValidate>

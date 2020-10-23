@@ -1,13 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import { Typography, Grid, Button, Snackbar } from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getTemplateAction,
   setStartDialogOpen,
 } from "../../actions/bigFiveActions";
 import Alert from "@material-ui/lab/Alert";
 import { useHistory } from "react-router-dom";
+import { checkExists } from "../../services/bigFiveService";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -31,10 +32,14 @@ const useStyles = makeStyles((theme) => ({
 
 const StartDialog = () => {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.login.user.token);
   const classes = useStyles();
   const history = useHistory();
   const [openError, setOpenError] = React.useState(false);
   const [error, setError] = React.useState("");
+
+  // check if record already exists
+  const isExists = checkExists(token);
 
   const onStart = async () => {
     const err = await dispatch(getTemplateAction());
@@ -59,31 +64,54 @@ const StartDialog = () => {
 
   return (
     <div className={classes.paper}>
-      <Typography className={classes.title}>
-        Apakah anda yakin untuk memulai tes?
-      </Typography>
-      <Grid container>
-        <Grid item xs={6}>
-          <Button
-            fullWidth
-            variant="outlined"
-            color="secondary"
-            onClick={onStart}
-          >
-            Iya
-          </Button>
+      {isExists ? (
+        <Typography className={classes.title}>
+          Anda hanya memiliki satu kesempatan.
+        </Typography>
+      ) : (
+        <Typography className={classes.title}>
+          Apakah anda yakin untuk memulai tes? Anda hanya memiliki satu
+          kesempatan.
+        </Typography>
+      )}
+      {isExists ? (
+        <Grid container>
+          <Grid item xs={12}>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="primary"
+              onClick={() => dispatch(setStartDialogOpen(false))}
+            >
+              Kembali
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <Button
-            fullWidth
-            variant="outlined"
-            color="primary"
-            onClick={() => dispatch(setStartDialogOpen(false))}
-          >
-            Tidak
-          </Button>
+      ) : (
+        <Grid container>
+          <Grid item xs={6}>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="secondary"
+              onClick={onStart}
+            >
+              Iya
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              fullWidth
+              variant="outlined"
+              color="primary"
+              onClick={() => dispatch(setStartDialogOpen(false))}
+            >
+              Tidak
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
+      )}
+
       <Snackbar open={openError} autoHideDuration={6000} onClose={onCloseError}>
         <Alert
           style={{

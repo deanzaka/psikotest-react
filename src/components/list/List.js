@@ -9,7 +9,7 @@ import {
   CardActionArea,
   CardMedia,
 } from "@material-ui/core";
-import rectangle from "../../assets/images/Rectangle.svg";
+import bigFiveLogo from "../../assets/images/BigFive.png";
 import { makeStyles } from "@material-ui/styles";
 import moment from "moment";
 import hello from "../../assets/images/HelloIllustration.png";
@@ -151,8 +151,8 @@ const List = (props) => {
             <Grid item xs={3}>
               <CardMedia
                 className={classes.media}
-                image={rectangle}
-                title="Rectangle"
+                image={bigFiveLogo}
+                title="BigFiveLogo"
               />
             </Grid>
             <Grid item xs={9}>

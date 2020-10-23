@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 import { Menu } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import logo from "../../assets/images/HeaderLogo.svg";
+import logo from "../../assets/images/Logo.png";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { rootTypes } from "../../actions/types";
@@ -24,7 +24,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  logo: { top: "50%" },
+  logoContainer: {
+    paddingLeft: "0px",
+  },
+  logo: {
+    top: "50%",
+    width: theme.spacing(20),
+  },
   box: {
     paddingRight: "0px",
     height: theme.spacing(8),
@@ -105,8 +111,8 @@ const Header = () => {
       <CssBaseline />
       <AppBar ref={anchorRef} position="relative" className={classes.box}>
         <Toolbar>
-          <Container className={classes.logo}>
-            <img classes={classes.logo} src={logo} alt="Logo" />{" "}
+          <Container className={classes.logoContainer}>
+            <img className={classes.logo} src={logo} alt="Logo" />{" "}
           </Container>
 
           <IconButton
