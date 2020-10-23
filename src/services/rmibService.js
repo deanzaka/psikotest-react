@@ -2,7 +2,7 @@ const axios = require("axios").default;
 
 export const getTemplateService = async () => {
   const options = {
-    url: `${process.env.API_URI}/rmib/template`,
+    url: `${process.env.REACT_APP_API_URI}/rmib/template`,
     method: "GET",
     headers: {
       Accept: "application/json",

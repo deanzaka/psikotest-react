@@ -2,7 +2,7 @@ const axios = require("axios").default;
 
 export const getTemplateService = async () => {
   const options = {
-    url: `${process.env.API_URI}/bigfive/template`,
+    url: `${process.env.REACT_APP_API_URI}/bigfive/template`,
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -19,7 +19,7 @@ export const getTemplateService = async () => {
 
 export const submitTemplateService = async (token, template) => {
   const options = {
-    url: `${process.env.API_URI}/bigfive`,
+    url: `${process.env.REACT_APP_API_URI}/bigfive`,
     method: "POST",
     headers: {
       Accept: "application/json",

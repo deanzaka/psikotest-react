@@ -4,7 +4,7 @@ export const updateProfileService = async (userData) => {
   const token = userData.token;
   delete userData.token;
   const options = {
-    url: `${process.env.API_URI}/users`,
+    url: `${process.env.REACT_APP_API_URI}/users`,
     method: "PUT",
     headers: {
       Accept: "application/json",
@@ -28,7 +28,10 @@ export const loginService = async (_id, password) => {
     body: JSON.stringify({ _id, password }),
   };
 
-  const res = await fetch(`${process.env.API_URI}/auth/login`, requestOptions);
+  const res = await fetch(
+    `${process.env.REACT_APP_API_URI}/auth/login`,
+    requestOptions
+  );
   const user = await handleResponse(res);
   return user;
 };
