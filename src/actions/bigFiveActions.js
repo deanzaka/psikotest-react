@@ -12,6 +12,8 @@ export const getTemplateAction = () => async (dispatch) => {
       template = await getTemplateService();
       localStorage.setItem("bf-template", JSON.stringify(template));
     }
+    // add date to randomize and trigger redispatch
+    template.date = new Date.now();
     dispatch({ type: bigFiveTypes.BF_GET_TEMPLATE, payload: template });
   } catch (err) {
     dispatch({
