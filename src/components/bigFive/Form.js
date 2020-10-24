@@ -111,7 +111,7 @@ const BigFiveForm = (props) => {
   const [progress, setProgress] = React.useState(0);
 
   let complete = false;
-  if (template) {
+  if (template.doc) {
     complete = true;
     let limit = currentPage * 10;
     if (limit > template.doc.length) {
