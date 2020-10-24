@@ -45,6 +45,7 @@ const StartDialog = (props) => {
     if (err) {
       setError(err.toString());
     }
+    localStorage.removeItem("startTime");
     setThanks(true);
   };
 

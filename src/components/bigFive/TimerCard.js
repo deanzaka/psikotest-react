@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
   timer: {
     position: "fixed",
     bottom: "calc(100% - 110px)",
-    right: "calc(50% - 216px)",
+    left: "calc(55%)",
   },
   paper: {
     padding: "8px 8px",
