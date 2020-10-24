@@ -111,7 +111,7 @@ const BigFiveForm = (props) => {
   const [progress, setProgress] = React.useState(0);
 
   let complete = false;
-  if (template.doc) {
+  if (template && template.doc) {
     complete = true;
     let limit = currentPage * 10;
     if (limit > template.doc.length) {
@@ -197,7 +197,9 @@ const BigFiveForm = (props) => {
           <Box borderBottom={1} {...defaultProps} />
         </Grid>
       </Grid>
-      {template ? <BigFivePage page={currentPage}></BigFivePage> : null}
+      {template && template.doc ? (
+        <BigFivePage page={currentPage}></BigFivePage>
+      ) : null}
 
       <Container
         style={{
@@ -225,7 +227,7 @@ const BigFiveForm = (props) => {
             </Grid>
           </Button>
         ) : null}
-        {template && template.doc.length > currentPage * 10 ? (
+        {template && template.doc && template.doc.length > currentPage * 10 ? (
           <Button
             fullWidth
             variant="contained"
