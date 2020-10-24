@@ -18,7 +18,10 @@ import {
 import { ArrowBack } from "@material-ui/icons";
 import StartDialog from "./StartDialog";
 import { useDispatch, useSelector } from "react-redux";
-import { setStartDialogOpen } from "../../actions/bigFiveActions";
+import {
+  checkExistsAction,
+  setStartDialogOpen,
+} from "../../actions/bigFiveActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -98,11 +101,13 @@ const defaultProps = {
 
 const BigFiveIntro = (props) => {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.login.user.token);
   const startDialogOpen = useSelector((state) => state.bigFive.startDialogOpen);
   const classes = useStyles();
   const { history } = props;
 
   const onOpenDialog = async () => {
+    await dispatch(checkExistsAction(token));
     dispatch(setStartDialogOpen(true));
   };
 

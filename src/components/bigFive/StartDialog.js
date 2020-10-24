@@ -8,7 +8,6 @@ import {
 } from "../../actions/bigFiveActions";
 import Alert from "@material-ui/lab/Alert";
 import { useHistory } from "react-router-dom";
-import { checkExists } from "../../services/bigFiveService";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,19 +31,16 @@ const useStyles = makeStyles((theme) => ({
 
 const StartDialog = () => {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.login.user.token);
   const classes = useStyles();
   const history = useHistory();
+  const isExists = useSelector((state) => state.bigFive.isExists);
   const [openError, setOpenError] = React.useState(false);
   const [error, setError] = React.useState("");
 
-  // check if record already exists
-  const isExists = checkExists(token);
-
   const onStart = async () => {
-    const err = await dispatch(getTemplateAction());
-    if (err) {
-      setError(err.toString());
+    const tempErr = await dispatch(getTemplateAction());
+    if (tempErr) {
+      setError(tempErr.toString());
       setOpenError(true);
       return;
     }

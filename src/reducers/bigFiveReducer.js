@@ -8,6 +8,7 @@ const initialState = template
       startDialogOpen: false,
       endDialogOpen: false,
       timeUp: false,
+      isExists: false,
       template,
     }
   : {};
@@ -43,6 +44,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         timeUp: action.payload,
+      };
+    case bigFiveTypes.BF_CHECK_EXISTS:
+      return {
+        ...state,
+        isExists: action.payload,
       };
     case bigFiveTypes.BF_CLEAR:
       return {};

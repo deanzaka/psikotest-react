@@ -18,43 +18,59 @@ export const getTemplateService = async () => {
 };
 
 export const submitTemplateService = async (token, template) => {
-  const options = {
-    url: `${process.env.REACT_APP_API_URI}/bigfive`,
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json;charset=UTF-8",
-      Authorization: `Bearer ${token}`,
-    },
-    data: template,
-  };
+  try {
+    const options = {
+      url: `${process.env.REACT_APP_API_URI}/bigfive`,
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+      data: template,
+    };
 
-  const res = await axios(options);
-  if (res.status !== 200) {
-    return Promise.reject(res.statusText);
+    const res = await axios(options);
+    if (res.status !== 200) {
+      return Promise.reject(res.statusText);
+    }
+    return res.data;
+  } catch (err) {
+    if (err.response.status === 401) {
+      localStorage.removeItem("user");
+    } else {
+      return Promise.reject(err.response);
+    }
   }
-  return res.data;
 };
 
 export const checkExists = async (token) => {
-  const options = {
-    url: `${process.env.REACT_APP_API_URI}/bigfive`,
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json;charset=UTF-8",
-      Authorization: `Bearer ${token}`,
-    },
-  };
+  try {
+    const options = {
+      url: `${process.env.REACT_APP_API_URI}/bigfive`,
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-  const res = await axios(options);
-  if (res.status !== 200) {
-    return Promise.reject(res.statusText);
-  }
+    const res = await axios(options);
+    if (res.status !== 200) {
+      return Promise.reject(res.statusText);
+    }
 
-  if (res.data) {
-    return true;
-  } else {
-    return false;
+    if (res.data.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    if (err.response.status === 401) {
+      localStorage.removeItem("user");
+    } else {
+      return Promise.reject(err.response);
+    }
   }
 };

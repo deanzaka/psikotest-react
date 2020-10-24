@@ -1,4 +1,5 @@
 import {
+  checkExists,
   getTemplateService,
   submitTemplateService,
 } from "../services/bigFiveService";
@@ -16,6 +17,11 @@ export const getTemplateAction = () => async (dispatch) => {
     });
     return err;
   }
+};
+
+export const checkExistsAction = (token) => async (dispatch) => {
+  const isExists = await checkExists(token);
+  dispatch({ type: bigFiveTypes.BF_CHECK_EXISTS, payload: isExists });
 };
 
 export const updateTemplateAction = (template) => (dispatch) => {

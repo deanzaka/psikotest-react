@@ -7,7 +7,6 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={(props) => {
         const user = JSON.parse(localStorage.getItem("user"));
-        console.log(user);
         if (user) {
           let complete = true;
           const check = [
@@ -25,8 +24,6 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
               break;
             }
           }
-          console.log("value:" + complete);
-          console.log(props.location.pathname);
           if (complete || props.location.pathname === "/profile")
             return <Component {...rest} {...props} />;
           else return <Redirect to="/profile" />;
