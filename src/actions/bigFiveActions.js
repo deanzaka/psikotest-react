@@ -7,7 +7,7 @@ import { bigFiveTypes } from "./types";
 
 export const getTemplateAction = () => async (dispatch) => {
   try {
-    let template = localStorage.getItem("bt-template");
+    let template = localStorage.getItem("bf-template");
     if (!template) {
       template = await getTemplateService();
       localStorage.setItem("bf-template", JSON.stringify(template));
