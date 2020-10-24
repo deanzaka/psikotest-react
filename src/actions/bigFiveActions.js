@@ -7,13 +7,9 @@ import { bigFiveTypes } from "./types";
 
 export const getTemplateAction = () => async (dispatch) => {
   try {
-    let template = localStorage.getItem("bf-template");
-    if (!template) {
-      template = await getTemplateService();
-      localStorage.setItem("bf-template", JSON.stringify(template));
-    }
-    // add date to randomize and trigger redispatch
-    template.date = new Date.now();
+    const template = await getTemplateService();
+    localStorage.removeItem("startTime");
+    localStorage.setItem("bf-template", JSON.stringify(template));
     dispatch({ type: bigFiveTypes.BF_GET_TEMPLATE, payload: template });
   } catch (err) {
     dispatch({
