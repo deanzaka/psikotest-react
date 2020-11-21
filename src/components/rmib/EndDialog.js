@@ -34,14 +34,14 @@ const StartDialog = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
-  // const token = useSelector((state) => state.login.user.token);
+  // const accessToken = useSelector((state) => state.login.user.accessToken);
   // const template = useSelector((state) => state.rmib.template);
   // const [error, setError] = React.useState("");
   // const [openError, setOpenError] = React.useState(false);
   const [openThanks, setThanks] = React.useState(false);
 
   const onFinish = async () => {
-    // const err = await submitTemplateAction(token, template);
+    // const err = await submitTemplateAction(accessToken, template);
     // if (err) {
     //   setError(err.toString());
     // }

@@ -37,9 +37,9 @@ export const loginAction = (_id, password) => async (dispatch) => {
 
 export const updateProfileAction = (userData) => async (dispatch) => {
   try {
-    await updateProfileService(userData);
     localStorage.setItem("user", JSON.stringify(userData));
     dispatch({ type: loginTypes.PROFILE_UPDATE, payload: userData });
+    await updateProfileService(userData);
     return null;
   } catch (err) {
     return err;

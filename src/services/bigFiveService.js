@@ -17,7 +17,7 @@ export const getTemplateService = async () => {
   return res.data;
 };
 
-export const submitTemplateService = async (token, template) => {
+export const submitTemplateService = async (accessToken, template) => {
   try {
     const options = {
       url: `${process.env.REACT_APP_API_URI}/bigfive`,
@@ -25,7 +25,7 @@ export const submitTemplateService = async (token, template) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       data: template,
     };
@@ -44,7 +44,7 @@ export const submitTemplateService = async (token, template) => {
   }
 };
 
-export const checkExists = async (token) => {
+export const checkExists = async (accessToken) => {
   try {
     const options = {
       url: `${process.env.REACT_APP_API_URI}/bigfive`,
@@ -52,7 +52,7 @@ export const checkExists = async (token) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     };
 

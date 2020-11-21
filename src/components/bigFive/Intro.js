@@ -102,13 +102,13 @@ const defaultProps = {
 
 const BigFiveIntro = (props) => {
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.login.user.token);
+  const accessToken = useSelector((state) => state.login.user.accessToken);
   const startDialogOpen = useSelector((state) => state.bigFive.startDialogOpen);
   const classes = useStyles();
   const { history } = props;
 
   const onOpenDialog = async () => {
-    await dispatch(checkExistsAction(token));
+    await dispatch(checkExistsAction(accessToken));
     dispatch(setStartDialogOpen(true));
   };
 

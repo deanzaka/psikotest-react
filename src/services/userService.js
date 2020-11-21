@@ -2,15 +2,15 @@ const axios = require("axios").default;
 
 export const updateProfileService = async (userData) => {
   try {
-    const token = userData.token;
-    delete userData.token;
+    const accessToken = userData.accessToken;
+    delete userData.accessToken;
     const options = {
       url: `${process.env.REACT_APP_API_URI}/users`,
       method: "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json;charset=UTF-8",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       data: userData,
     };

@@ -20,8 +20,8 @@ export const getTemplateAction = () => async (dispatch) => {
   }
 };
 
-export const checkExistsAction = (token) => async (dispatch) => {
-  const isExists = await checkExists(token);
+export const checkExistsAction = (accessToken) => async (dispatch) => {
+  const isExists = await checkExists(accessToken);
   dispatch({ type: bigFiveTypes.BF_CHECK_EXISTS, payload: isExists });
 };
 
@@ -30,8 +30,8 @@ export const updateTemplateAction = (template) => (dispatch) => {
   dispatch({ type: bigFiveTypes.BF_UPDATE_TEMPLATE, payload: template });
 };
 
-export const submitTemplateAction = async (token, template) => {
-  await submitTemplateService(token, template);
+export const submitTemplateAction = async (accessToken, template) => {
+  await submitTemplateService(accessToken, template);
   localStorage.removeItem("bf-template");
   localStorage.removeItem("startTime");
 };

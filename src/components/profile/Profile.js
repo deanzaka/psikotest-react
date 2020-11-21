@@ -78,7 +78,6 @@ const Profile = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.login.user);
-  const token = useSelector((state) => state.login.user.token);
 
   const [name, setName] = React.useState(user.name ? user.name : "");
   const [errName, setErrName] = React.useState("");
@@ -174,17 +173,20 @@ const Profile = (props) => {
       return;
     }
 
+    const formattedBirthDate = new Date(birthDate)
+      .toISOString()
+      .substring(0, 10);
     const err = await dispatch(
       updateProfileAction({
         _id: user._id,
         name: name,
         address: address,
         phone: phone,
-        birthDate: new Date(birthDate).toISOString(),
+        birthDate: formattedBirthDate,
         gender: gender,
         education: education,
         occupation: occupation,
-        token: token,
+        accessToken: user.accessToken,
       })
     );
 
