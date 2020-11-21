@@ -11,8 +11,8 @@ import Login from "./components/login/Login";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import Profile from "./components/profile/Profile";
 import List from "./components/list/List";
-import BigFiveIntro from "./components/bigFive/Intro";
-import BigFiveForm from "./components/bigFive/Form";
+// import BigFiveIntro from "./components/bigFive/Intro";
+// import BigFiveForm from "./components/bigFive/Form";
 import StressIntro from "./components/stress/Intro";
 import StressForm from "./components/stress/Form";
 // import RMIBIntro from "./components/rmib/Intro";
@@ -70,7 +70,7 @@ const App = () => {
                   path="/"
                   component={List}
                 ></ProtectedRoute>
-                <ProtectedRoute
+                {/* <ProtectedRoute
                   exact
                   path="/big-five"
                   component={BigFiveIntro}
@@ -79,7 +79,7 @@ const App = () => {
                   exact
                   path="/big-five/form"
                   component={BigFiveForm}
-                ></ProtectedRoute>
+                ></ProtectedRoute> */}
                 <ProtectedRoute
                   exact
                   path="/stress"

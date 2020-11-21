@@ -9,7 +9,7 @@ import {
   CardActionArea,
   CardMedia,
 } from "@material-ui/core";
-import bigFiveLogo from "../../assets/images/BigFive.png";
+// import bigFiveLogo from "../../assets/images/BigFive.png";
 import stressLogo from "../../assets/images/StressLogo.png";
 import { makeStyles } from "@material-ui/styles";
 import moment from "moment";
@@ -146,7 +146,7 @@ const List = (props) => {
         </Grid>
       </Grid>
       <Typography className={classes.title}>Kategori Psikotes</Typography>
-      <Typography className={classes.testTitle}>Tes Kepribadian</Typography>
+      {/* <Typography className={classes.testTitle}>Tes Kepribadian</Typography>
       <Card className={classes.card}>
         <CardActionArea onClick={() => history.push("/big-five")}>
           <Grid container>
@@ -168,7 +168,7 @@ const List = (props) => {
             </Grid>
           </Grid>
         </CardActionArea>
-      </Card>
+      </Card> */}
       <Typography className={classes.testTitle}>Tes Stress Akademis</Typography>
       <Card className={classes.card}>
         <CardActionArea onClick={() => history.push("/stress")}>
