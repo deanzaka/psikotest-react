@@ -29,15 +29,15 @@ export const updateProfileService = async (userData) => {
   }
 };
 
-export const loginService = async (_id, password) => {
+export const loginService = async (_id, name) => {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ _id, password }),
+    body: JSON.stringify({ _id, name }),
   };
 
   const res = await fetch(
-    `${process.env.REACT_APP_API_URI}/auth/login`,
+    `${process.env.REACT_APP_API_URI}/auth/temp-login`,
     requestOptions
   );
   const user = await handleResponse(res);

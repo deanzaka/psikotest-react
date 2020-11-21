@@ -64,9 +64,11 @@ const Login = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  // const [password, setPassword] = React.useState("");
+  const [name, setName] = React.useState("");
   const [errorEmail, setErrorEmail] = React.useState("");
-  const [errorPassword, setErrorPassword] = React.useState("");
+  // const [errorPassword, setErrorPassword] = React.useState("");
+  const [errorName, setErrorName] = React.useState("");
   const [open, setOpen] = React.useState(false);
 
   const onClose = (event, reason) => {
@@ -82,8 +84,11 @@ const Login = (props) => {
       case "email":
         setEmail(e.target.value);
         break;
-      case "password":
-        setPassword(e.target.value);
+      // case "password":
+      //   setPassword(e.target.value);
+      //   break;
+      case "name":
+        setName(e.target.value);
         break;
       default:
     }
@@ -96,30 +101,41 @@ const Login = (props) => {
       setErrorEmail("Harap masukkan email");
       return;
     }
-    if (password === "") {
-      setErrorPassword("Harap masukkan password");
+    // if (password === "") {
+    //   setErrorPassword("Harap masukkan password");
+    //   return;
+    // }
+    if (name === "") {
+      setErrorName("Harap masukkan nama");
       return;
     }
 
-    const err = await dispatch(loginAction(email, password));
+    // const err = await dispatch(loginAction(email, password));
+    const err = await dispatch(loginAction(email, name));
+
     if (err) {
       if (err === "incomplete") {
         setEmail("");
-        setPassword("");
+        // setPassword("");
+        setName("");
         setErrorEmail("");
-        setErrorPassword("");
+        // setErrorPassword("");
+        setErrorName("");
 
         props.history.push("/profile");
       } else {
         setErrorEmail("");
-        setErrorPassword("");
+        // setErrorPassword("");
+        setErrorName("");
         setOpen(true);
       }
     } else {
       setEmail("");
-      setPassword("");
+      // setPassword("");
+      setName("");
       setErrorEmail("");
-      setErrorPassword("");
+      // setErrorPassword("");
+      setErrorName("");
 
       props.history.push("/");
     }
@@ -153,7 +169,7 @@ const Login = (props) => {
             error={errorEmail !== ""}
             helperText={errorEmail}
           />
-          <TextField
+          {/* <TextField
             margin="normal"
             required
             fullWidth
@@ -166,6 +182,20 @@ const Login = (props) => {
             onChange={onChange}
             error={errorPassword !== ""}
             helperText={errorPassword}
+          /> */}
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="name"
+            label="Nama"
+            type="name"
+            id="name"
+            autoComplete="name"
+            value={name}
+            onChange={onChange}
+            error={errorName !== ""}
+            helperText={errorName}
           />
           <Button
             type="submit"
@@ -181,7 +211,8 @@ const Login = (props) => {
       </div>
       <Snackbar open={open} autoHideDuration={6000} onClose={onClose}>
         <Alert onClose={onClose} severity="error">
-          Email atau password salah
+          {/* Email atau password salah */}
+          Terjadi kesalahan pada sistem
         </Alert>
       </Snackbar>
     </Container>

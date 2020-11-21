@@ -1,10 +1,10 @@
 import { loginService, updateProfileService } from "../services/userService";
 import { loginTypes } from "./types";
 
-export const loginAction = (_id, password) => async (dispatch) => {
+export const loginAction = (_id, name) => async (dispatch) => {
   try {
-    dispatch({ type: loginTypes.LOGIN_REQUEST, payload: { _id } });
-    const user = await loginService(_id, password);
+    dispatch({ type: loginTypes.LOGIN_REQUEST, payload: { _id, name } });
+    const user = await loginService(_id, name);
     localStorage.setItem("user", JSON.stringify(user));
     dispatch({ type: loginTypes.LOGIN_SUCCESS, payload: user });
 
