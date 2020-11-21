@@ -15,6 +15,8 @@ import List from "./components/list/List";
 // import BigFiveForm from "./components/bigFive/Form";
 import StressIntro from "./components/stress/Intro";
 import StressForm from "./components/stress/Form";
+import LonelinessIntro from "./components/loneliness/Intro";
+import LonelinessForm from "./components/loneliness/Form";
 // import RMIBIntro from "./components/rmib/Intro";
 // import RMIBForm from "./components/rmib/Form";
 
@@ -89,6 +91,16 @@ const App = () => {
                   exact
                   path="/stress/form"
                   component={StressForm}
+                ></ProtectedRoute>
+                <ProtectedRoute
+                  exact
+                  path="/loneliness"
+                  component={LonelinessIntro}
+                ></ProtectedRoute>
+                <ProtectedRoute
+                  exact
+                  path="/loneliness/form"
+                  component={LonelinessForm}
                 ></ProtectedRoute>
                 {/* <ProtectedRoute
                   exact
