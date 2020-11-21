@@ -10,6 +10,7 @@ import {
   CardMedia,
 } from "@material-ui/core";
 import bigFiveLogo from "../../assets/images/BigFive.png";
+import stressLogo from "../../assets/images/StressLogo.png";
 import { makeStyles } from "@material-ui/styles";
 import moment from "moment";
 import hello from "../../assets/images/HelloIllustration.png";
@@ -144,7 +145,7 @@ const List = (props) => {
           <img classes={classes.hello} src={hello} alt="Hello" />
         </Grid>
       </Grid>
-      {/* <Typography className={classes.title}>Kategori Psikotes</Typography> */}
+      <Typography className={classes.title}>Kategori Psikotes</Typography>
       <Typography className={classes.testTitle}>Tes Kepribadian</Typography>
       <Card className={classes.card}>
         <CardActionArea onClick={() => history.push("/big-five")}>
@@ -159,6 +160,29 @@ const List = (props) => {
             <Grid item xs={9}>
               <Typography className={classes.testName}>
                 Big Five Personality Test
+              </Typography>
+              <Typography className={classes.testDetails}>
+                Tes Psikologi yang digunakan untuk mengukur 5 faktor utama yang
+                mempengaruhi kepribadian
+              </Typography>
+            </Grid>
+          </Grid>
+        </CardActionArea>
+      </Card>
+      <Typography className={classes.testTitle}>Tes Stress Akademis</Typography>
+      <Card className={classes.card}>
+        <CardActionArea onClick={() => history.push("/stress")}>
+          <Grid container>
+            <Grid item xs={3}>
+              <CardMedia
+                className={classes.media}
+                image={stressLogo}
+                title="StressLogo"
+              />
+            </Grid>
+            <Grid item xs={9}>
+              <Typography className={classes.testName}>
+                Academic Stress Test
               </Typography>
               <Typography className={classes.testDetails}>
                 Tes Psikologi yang digunakan untuk mengukur 5 faktor utama yang
