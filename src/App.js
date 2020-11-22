@@ -50,8 +50,6 @@ const theme = createMuiTheme({
   },
 });
 
-console.log(theme);
-
 const App = () => {
   return (
     <Provider store={store}>

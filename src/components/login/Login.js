@@ -11,9 +11,10 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-
+import { trackPromise, usePromiseTracker } from "react-promise-tracker";
 import logo from "../../assets/images/Logo.png";
 import { makeStyles } from "@material-ui/styles";
+import LoadingIndicator from "../loadingIndicator/LoadingIndicator";
 
 const Alert = (props) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -61,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = (props) => {
+  const { promiseInProgress } = usePromiseTracker();
   const classes = useStyles();
   const dispatch = useDispatch();
   const [email, setEmail] = React.useState("");
@@ -111,7 +113,7 @@ const Login = (props) => {
     }
 
     // const err = await dispatch(loginAction(email, password));
-    const err = await dispatch(loginAction(email, name));
+    const err = await trackPromise(dispatch(loginAction(email, name)));
 
     if (err) {
       if (err === "incomplete") {
@@ -150,26 +152,29 @@ const Login = (props) => {
       }}
     >
       <CssBaseline />
-      <div className={classes.paper}>
-        <img className={classes.logo} src={logo} alt="Logo" />
-        <Typography className={classes.login}>Selamat Datang</Typography>
-        <Divider className={classes.divider} variant="middle" />
-        <form className={classes.form} onSubmit={onSubmit} noValidate>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Alamat email"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            value={email}
-            onChange={onChange}
-            error={errorEmail !== ""}
-            helperText={errorEmail}
-          />
-          {/* <TextField
+      {promiseInProgress ? (
+        <LoadingIndicator />
+      ) : (
+        <div className={classes.paper}>
+          <img className={classes.logo} src={logo} alt="Logo" />
+          <Typography className={classes.login}>Selamat Datang</Typography>
+          <Divider className={classes.divider} variant="middle" />
+          <form className={classes.form} onSubmit={onSubmit} noValidate>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Alamat email"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={email}
+              onChange={onChange}
+              error={errorEmail !== ""}
+              helperText={errorEmail}
+            />
+            {/* <TextField
             margin="normal"
             required
             fullWidth
@@ -183,32 +188,33 @@ const Login = (props) => {
             error={errorPassword !== ""}
             helperText={errorPassword}
           /> */}
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="name"
-            label="Nama"
-            type="name"
-            id="name"
-            autoComplete="name"
-            value={name}
-            onChange={onChange}
-            error={errorName !== ""}
-            helperText={errorName}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="secondary"
-            className={classes.submit}
-          >
-            Masuk
-          </Button>
-          {/* <Typography align="right">Lupa kata sandi?</Typography> */}
-        </form>
-      </div>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="name"
+              label="Nama"
+              type="name"
+              id="name"
+              autoComplete="name"
+              value={name}
+              onChange={onChange}
+              error={errorName !== ""}
+              helperText={errorName}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="secondary"
+              className={classes.submit}
+            >
+              Masuk
+            </Button>
+            {/* <Typography align="right">Lupa kata sandi?</Typography> */}
+          </form>
+        </div>
+      )}
       <Snackbar open={open} autoHideDuration={6000} onClose={onClose}>
         <Alert onClose={onClose} severity="error">
           {/* Email atau password salah */}

@@ -17,6 +17,8 @@ import {
   checkExistsAction,
   setStartDialogOpen,
 } from "../../actions/stressActions";
+import { trackPromise, usePromiseTracker } from "react-promise-tracker";
+import LoadingIndicator from "../loadingIndicator/LoadingIndicator";
 import sts from "../../assets/images/VectorSTS.svg";
 import ts from "../../assets/images/VectorTS.svg";
 import bs from "../../assets/images/VectorBS.svg";
@@ -93,6 +95,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const StressIntro = (props) => {
+  const { promiseInProgress } = usePromiseTracker();
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.login.user.accessToken);
   const startDialogOpen = useSelector((state) => state.stress.startDialogOpen);
@@ -100,7 +103,7 @@ const StressIntro = (props) => {
   const { history } = props;
 
   const onOpenDialog = async () => {
-    await dispatch(checkExistsAction(accessToken));
+    await trackPromise(dispatch(checkExistsAction(accessToken)));
     dispatch(setStartDialogOpen(true));
   };
 
@@ -279,6 +282,9 @@ const StressIntro = (props) => {
       </Container>
       <Modal open={startDialogOpen}>
         <StartDialog />
+      </Modal>
+      <Modal open={promiseInProgress}>
+        <LoadingIndicator />
       </Modal>
     </Container>
   );

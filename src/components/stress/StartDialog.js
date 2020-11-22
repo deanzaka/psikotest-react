@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
-import { Typography, Grid, Button, Snackbar } from "@material-ui/core";
+import { Typography, Grid, Button, Snackbar, Modal } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getTemplateAction,
@@ -8,6 +8,8 @@ import {
 } from "../../actions/stressActions";
 import Alert from "@material-ui/lab/Alert";
 import { useHistory } from "react-router-dom";
+import { trackPromise, usePromiseTracker } from "react-promise-tracker";
+import LoadingIndicator from "../loadingIndicator/LoadingIndicator";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const StartDialog = () => {
+  const { promiseInProgress } = usePromiseTracker();
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
@@ -38,7 +41,7 @@ const StartDialog = () => {
   const [error, setError] = React.useState("");
 
   const onStart = async () => {
-    const tempErr = await dispatch(getTemplateAction());
+    const tempErr = await trackPromise(dispatch(getTemplateAction()));
     if (tempErr) {
       setError(tempErr.toString());
       setOpenError(true);
@@ -106,6 +109,9 @@ const StartDialog = () => {
           </Grid>
         </Grid>
       )}
+      <Modal open={promiseInProgress}>
+        <LoadingIndicator />
+      </Modal>
 
       <Snackbar open={openError} autoHideDuration={6000} onClose={onCloseError}>
         <Alert

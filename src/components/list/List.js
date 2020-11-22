@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AppHeader from "../header/Header";
 import {
   CssBaseline,
@@ -8,6 +8,7 @@ import {
   Grid,
   CardActionArea,
   CardMedia,
+  Modal,
 } from "@material-ui/core";
 // import bigFiveLogo from "../../assets/images/BigFive.png";
 import stressLogo from "../../assets/images/StressLogo.png";
@@ -16,6 +17,9 @@ import storyLogo from "../../assets/images/StoryLogo.png";
 import { makeStyles } from "@material-ui/styles";
 import moment from "moment";
 import hello from "../../assets/images/HelloIllustration.png";
+import { checkExistsAction } from "../../actions/storyActions";
+import { trackPromise, usePromiseTracker } from "react-promise-tracker";
+import LoadingIndicator from "../loadingIndicator/LoadingIndicator";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,9 +107,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const List = (props) => {
+  const { promiseInProgress } = usePromiseTracker();
+  const dispatch = useDispatch();
   const classes = useStyles();
   const { history } = props;
   const user = useSelector((state) => state.login.user);
+  const accessToken = user.accessToken;
 
   const getGreetingTime = (m) => {
     let g = null;
@@ -140,6 +147,11 @@ const List = (props) => {
     } else {
       return "Sobi Empathy";
     }
+  };
+
+  const onClickStory = async (props) => {
+    await trackPromise(dispatch(checkExistsAction(accessToken)));
+    history.push("/story");
   };
 
   return (
@@ -231,7 +243,7 @@ const List = (props) => {
         </CardActionArea>
       </Card>
       <Card className={classes.card}>
-        <CardActionArea onClick={() => history.push("/story")}>
+        <CardActionArea onClick={onClickStory}>
           <Grid container>
             <Grid item xs={3}>
               <CardMedia
@@ -275,6 +287,10 @@ const List = (props) => {
           </Grid>
         </CardActionArea>
       </Card> */}
+
+      <Modal open={promiseInProgress}>
+        <LoadingIndicator />
+      </Modal>
     </div>
   );
 };

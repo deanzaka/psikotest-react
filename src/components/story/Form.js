@@ -13,10 +13,7 @@ import {
 import { ArrowBack } from "@material-ui/icons";
 import RichTextEditor from "./RichTextEditor";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  checkExistsAction,
-  setEndDialogOpen,
-} from "../../actions/storyActions";
+import { setEndDialogOpen } from "../../actions/storyActions";
 import EndDialog from "./EndDialog";
 
 const useStyles = makeStyles((theme) => ({
@@ -106,13 +103,10 @@ const useStyles = makeStyles((theme) => ({
 
 const StoryIntro = (props) => {
   const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.login.user.accessToken);
   const endDialogOpen = useSelector((state) => state.story.endDialogOpen);
   const isExists = useSelector((state) => state.story.isExists);
   const classes = useStyles();
   const { history } = props;
-
-  dispatch(checkExistsAction(accessToken));
 
   const onOpenDialogFinish = async () => {
     if (!isExists) {

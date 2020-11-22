@@ -17,6 +17,8 @@ import {
   checkExistsAction,
   setStartDialogOpen,
 } from "../../actions/lonelinessActions";
+import { trackPromise, usePromiseTracker } from "react-promise-tracker";
+import LoadingIndicator from "../loadingIndicator/LoadingIndicator";
 import tp from "../../assets/images/VectorSTS.svg";
 import j from "../../assets/images/VectorTS.svg";
 import t from "../../assets/images/VectorBS.svg";
@@ -92,6 +94,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LonelinessIntro = (props) => {
+  const { promiseInProgress } = usePromiseTracker();
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.login.user.accessToken);
   const startDialogOpen = useSelector(
@@ -101,7 +104,7 @@ const LonelinessIntro = (props) => {
   const { history } = props;
 
   const onOpenDialog = async () => {
-    await dispatch(checkExistsAction(accessToken));
+    await trackPromise(dispatch(checkExistsAction(accessToken)));
     dispatch(setStartDialogOpen(true));
   };
 
@@ -261,6 +264,9 @@ const LonelinessIntro = (props) => {
       </Container>
       <Modal open={startDialogOpen}>
         <StartDialog />
+      </Modal>
+      <Modal open={promiseInProgress}>
+        <LoadingIndicator />
       </Modal>
     </Container>
   );

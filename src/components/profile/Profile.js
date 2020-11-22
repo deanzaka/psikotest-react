@@ -18,6 +18,7 @@ import {
   Grid,
   Typography,
   Snackbar,
+  Modal,
 } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -27,6 +28,8 @@ import {
 import MuiAlert from "@material-ui/lab/Alert";
 import { ArrowBack } from "@material-ui/icons";
 import { updateProfileAction } from "../../actions/loginActions";
+import { trackPromise, usePromiseTracker } from "react-promise-tracker";
+import LoadingIndicator from "../loadingIndicator/LoadingIndicator";
 
 const Alert = (props) => {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -75,6 +78,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Profile = (props) => {
+  const { promiseInProgress } = usePromiseTracker();
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.login.user);
@@ -112,7 +116,6 @@ const Profile = (props) => {
   };
 
   const onChange = (e) => {
-    console.log(e);
     if (Object.prototype.toString.call(e) === "[object Date]") {
       setBirthDate(e);
     } else {
@@ -176,18 +179,20 @@ const Profile = (props) => {
     const formattedBirthDate = new Date(birthDate)
       .toISOString()
       .substring(0, 10);
-    const err = await dispatch(
-      updateProfileAction({
-        _id: user._id,
-        name: name,
-        address: address,
-        phone: phone,
-        birthDate: formattedBirthDate,
-        gender: gender,
-        education: education,
-        occupation: occupation,
-        accessToken: user.accessToken,
-      })
+    const err = await trackPromise(
+      dispatch(
+        updateProfileAction({
+          _id: user._id,
+          name: name,
+          address: address,
+          phone: phone,
+          birthDate: formattedBirthDate,
+          gender: gender,
+          education: education,
+          occupation: occupation,
+          accessToken: user.accessToken,
+        })
+      )
     );
 
     if (err) {
@@ -348,6 +353,9 @@ const Profile = (props) => {
           </form>
         </div>
       </MuiPickersUtilsProvider>
+      <Modal open={promiseInProgress}>
+        <LoadingIndicator />
+      </Modal>
       <Snackbar open={open} autoHideDuration={6000} onClose={onClose}>
         <Alert onClose={onClose} severity="error">
           Terjadi kesalahan, tidak dapat memperbaharui profile.
