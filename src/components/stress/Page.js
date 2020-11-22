@@ -37,7 +37,7 @@ const StressPage = (props) => {
   const template = useSelector((state) => state.stress.template);
   const hasError = useSelector((state) => state.stress.hasError);
   const { page } = props;
-  let limit = page * 10;
+  let limit = page * 5;
   if (limit > template.doc.length) {
     limit = template.doc.length;
   }
@@ -50,7 +50,7 @@ const StressPage = (props) => {
 
   return (
     <div>
-      {template.doc.slice((page - 1) * 10, limit).map((question) => (
+      {template.doc.slice((page - 1) * 5, limit).map((question) => (
         <div key={question.indexNumber.toString()}>
           <Grid
             container

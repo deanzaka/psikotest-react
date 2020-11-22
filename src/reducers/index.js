@@ -4,11 +4,13 @@ import bigFiveReducer from "./bigFiveReducer";
 import rmibReducer from "./rmibReducer";
 import { rootTypes } from "../actions/types";
 import stressReducer from "./stressReducer";
+import lonelinessReducer from "./lonelinessReducer";
 
 const appReducer = combineReducers({
   login: loginReducer,
   bigFive: bigFiveReducer,
   stress: stressReducer,
+  loneliness: lonelinessReducer,
   rmib: rmibReducer,
 });
 

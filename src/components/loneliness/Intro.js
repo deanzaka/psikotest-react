@@ -7,7 +7,6 @@ import {
   Toolbar,
   Grid,
   Typography,
-  Box,
   Button,
   Modal,
 } from "@material-ui/core";
@@ -18,11 +17,10 @@ import {
   checkExistsAction,
   setStartDialogOpen,
 } from "../../actions/lonelinessActions";
-import sts from "../../assets/images/VectorSTS.svg";
-import ts from "../../assets/images/VectorTS.svg";
-import bs from "../../assets/images/VectorBS.svg";
+import tp from "../../assets/images/VectorSTS.svg";
+import j from "../../assets/images/VectorTS.svg";
+import t from "../../assets/images/VectorBS.svg";
 import s from "../../assets/images/VectorS.svg";
-import ss from "../../assets/images/VectorSS.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -93,13 +91,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const defaultProps = {
-  bgcolor: "background.paper",
-  m: 1,
-  style: { width: "inherit", height: "16px" },
-  borderColor: "text.primary",
-};
-
 const LonelinessIntro = (props) => {
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.login.user.accessToken);
@@ -154,77 +145,71 @@ const LonelinessIntro = (props) => {
       </Typography>
       <Typography className={classes.legendTitle}>Keterangan Simbol</Typography>
       <Grid container style={{ paddingTop: "8px" }}>
-        <Grid item xs={1}></Grid>
+        <Grid item xs={2}></Grid>
         <Grid item xs={2} className={classes.legendTag}>
-          <img src={sts} alt="sts" />{" "}
+          <img src={tp} alt="tp" />{" "}
         </Grid>
         <Grid item xs={2} className={classes.legendTag}>
-          <img src={ts} alt="ts" />{" "}
+          <img src={j} alt="j" />{" "}
         </Grid>
         <Grid item xs={2} className={classes.legendTag}>
-          <img src={bs} alt="bs" />{" "}
+          <img src={t} alt="t" />{" "}
         </Grid>
         <Grid item xs={2} className={classes.legendTag}>
           <img src={s} alt="s" />{" "}
         </Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          <img src={ss} alt="ss" />{" "}
-        </Grid>
-        <Grid item xs={1}></Grid>
+        <Grid item xs={2}></Grid>
       </Grid>
       <Grid container>
-        <Grid item xs={1}></Grid>
+        <Grid item xs={2}></Grid>
         <Grid item xs={2} className={classes.legendTag}>
-          STS
+          TP
         </Grid>
         <Grid item xs={2} className={classes.legendTag}>
-          TS
+          J
         </Grid>
         <Grid item xs={2} className={classes.legendTag}>
-          BS
+          T
         </Grid>
         <Grid item xs={2} className={classes.legendTag}>
           S
         </Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          SS
-        </Grid>
-        <Grid item xs={1}></Grid>
+        <Grid item xs={2}></Grid>
       </Grid>
       <Grid container style={{ paddingTop: "24px", fontSize: "16px" }}>
         <Grid item xs={3}></Grid>
         <Grid item xs={1} style={{ textAlign: "left" }}>
-          STS
+          TP
         </Grid>
         <Grid item xs={1} style={{ textAlign: "center" }}>
           -
         </Grid>
         <Grid item xs={7} style={{ textAlign: "left" }}>
-          Sangat Tidak Setuju
+          Tidak Pernah
         </Grid>
       </Grid>
       <Grid container style={{ paddingTop: "24px", fontSize: "16px" }}>
         <Grid item xs={3}></Grid>
         <Grid item xs={1} style={{ textAlign: "left" }}>
-          TS
+          J
         </Grid>
         <Grid item xs={1} style={{ textAlign: "center" }}>
           -
         </Grid>
         <Grid item xs={7} style={{ textAlign: "left" }}>
-          Tidak Setuju
+          Jarang
         </Grid>
       </Grid>
       <Grid container style={{ paddingTop: "24px", fontSize: "16px" }}>
         <Grid item xs={3}></Grid>
         <Grid item xs={1} style={{ textAlign: "left" }}>
-          BS
+          T
         </Grid>
         <Grid item xs={1} style={{ textAlign: "center" }}>
           -
         </Grid>
         <Grid item xs={7} style={{ textAlign: "left" }}>
-          Biasa Saja
+          Terkadang
         </Grid>
       </Grid>
       <Grid container style={{ paddingTop: "24px", fontSize: "16px" }}>
@@ -236,51 +221,32 @@ const LonelinessIntro = (props) => {
           -
         </Grid>
         <Grid item xs={7} style={{ textAlign: "left" }}>
-          Setuju
-        </Grid>
-      </Grid>
-      <Grid container style={{ paddingTop: "24px", fontSize: "16px" }}>
-        <Grid item xs={3}></Grid>
-        <Grid item xs={1} style={{ textAlign: "left" }}>
-          SS
-        </Grid>
-        <Grid item xs={1} style={{ textAlign: "center" }}>
-          -
-        </Grid>
-        <Grid item xs={7} style={{ textAlign: "left" }}>
-          Sangat Setuju
+          Sering
         </Grid>
       </Grid>
       <Typography className={classes.legendTitle}>Ilustrasi</Typography>
       <Grid container className={classes.question}>
-        <Grid item xs={6}>
-          <Typography>Saya adalah orang yang</Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Box borderBottom={1} {...defaultProps} />
-        </Grid>
         <Grid item xs={12}>
-          <Typography>- Bahagia saat bermain sepeda</Typography>
+          <Typography>
+            - Seberapa sering kamu merasa bahagia saat bermain sepeda?
+          </Typography>
         </Grid>
       </Grid>
       <Grid container style={{ paddingTop: "8px" }}>
-        <Grid item xs={1}></Grid>
+        <Grid item xs={2}></Grid>
         <Grid item xs={2} className={classes.legendTag}>
-          <img src={sts} alt="sts" className={classes.gray} />{" "}
+          <img src={tp} alt="tp" className={classes.gray} />{" "}
         </Grid>
         <Grid item xs={2} className={classes.legendTag}>
-          <img src={ts} alt="ts" className={classes.gray} />{" "}
+          <img src={j} alt="j" className={classes.gray} />{" "}
         </Grid>
         <Grid item xs={2} className={classes.legendTag}>
-          <img src={bs} alt="bs" className={classes.gray} />{" "}
+          <img src={t} alt="t" className={classes.gray} />{" "}
         </Grid>
         <Grid item xs={2} className={classes.legendTag}>
-          <img src={s} alt="s" className={classes.gray} />{" "}
+          <img src={s} alt="s" />{" "}
         </Grid>
-        <Grid item xs={2} className={classes.legendTag}>
-          <img src={ss} alt="ss" />{" "}
-        </Grid>
-        <Grid item xs={1}></Grid>
+        <Grid item xs={2}></Grid>
       </Grid>
       <Container style={{ paddingLeft: "32px", paddingRight: "32px" }}>
         <Button

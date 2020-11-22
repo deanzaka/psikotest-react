@@ -7,7 +7,6 @@ import {
   Toolbar,
   Typography,
   Grid,
-  Box,
   Button,
   LinearProgress,
   makeStyles,
@@ -93,13 +92,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const defaultProps = {
-  bgcolor: "background.paper",
-  m: 1,
-  style: { width: "inherit", height: "16px" },
-  borderColor: "text.primary",
-};
-
 const StressForm = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -113,11 +105,11 @@ const StressForm = (props) => {
   let complete = false;
   if (template && template.doc) {
     complete = true;
-    let limit = currentPage * 10;
+    let limit = currentPage * 8;
     if (limit > template.doc.length) {
       limit = template.doc.length;
     }
-    const currentForm = template.doc.slice((currentPage - 1) * 10, limit);
+    const currentForm = template.doc.slice((currentPage - 1) * 8, limit);
     const empties = currentForm.filter((item) => {
       return typeof item.score === "undefined";
     });
@@ -127,15 +119,15 @@ const StressForm = (props) => {
   }
 
   const onNext = () => {
-    let maxPage = template.doc.length / 10;
-    if (template.doc.length % 10 > 0) {
+    let maxPage = template.doc.length / 8;
+    if (template.doc.length % 8 > 0) {
       maxPage++;
     }
     const progress = ((currentPage + 1) * 100) / maxPage;
 
     if (complete) {
       window.scrollTo({ top: 0, behavior: "smooth" });
-      if (template.doc.length > currentPage * 10) {
+      if (template.doc.length > currentPage * 8) {
         setCurrentPage(currentPage + 1);
         setProgress(progress);
         dispatch(setHasError(false));
@@ -149,8 +141,8 @@ const StressForm = (props) => {
   const onBack = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     if (currentPage > 1) {
-      let maxPage = template.doc.length / 10;
-      if (template.doc.length % 10 > 0) {
+      let maxPage = template.doc.length / 8;
+      if (template.doc.length % 8 > 0) {
         maxPage++;
       }
       const progress = ((currentPage - 1) * 100) / maxPage;
@@ -189,14 +181,7 @@ const StressForm = (props) => {
         value={progress}
       ></LinearProgress>
       <TimerCard></TimerCard>
-      <Grid container className={classes.question}>
-        <Grid item xs={6}>
-          <Typography>Saya adalah orang yang</Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Box borderBottom={1} {...defaultProps} />
-        </Grid>
-      </Grid>
+      <Grid container className={classes.question}></Grid>
       {template && template.doc ? (
         <StressPage page={currentPage}></StressPage>
       ) : null}
@@ -227,7 +212,7 @@ const StressForm = (props) => {
             </Grid>
           </Button>
         ) : null}
-        {template && template.doc && template.doc.length > currentPage * 10 ? (
+        {template && template.doc && template.doc.length > currentPage * 8 ? (
           <Button
             fullWidth
             variant="contained"

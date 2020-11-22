@@ -7,7 +7,6 @@ import {
   Toolbar,
   Grid,
   Typography,
-  Box,
   Button,
   Modal,
 } from "@material-ui/core";
@@ -92,13 +91,6 @@ const useStyles = makeStyles((theme) => ({
     filter: "grayscale(80%)",
   },
 }));
-
-const defaultProps = {
-  bgcolor: "background.paper",
-  m: 1,
-  style: { width: "inherit", height: "16px" },
-  borderColor: "text.primary",
-};
 
 const StressIntro = (props) => {
   const dispatch = useDispatch();
@@ -251,14 +243,8 @@ const StressIntro = (props) => {
       </Grid>
       <Typography className={classes.legendTitle}>Ilustrasi</Typography>
       <Grid container className={classes.question}>
-        <Grid item xs={6}>
-          <Typography>Saya adalah orang yang</Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Box borderBottom={1} {...defaultProps} />
-        </Grid>
         <Grid item xs={12}>
-          <Typography>- Bahagia saat bermain sepeda</Typography>
+          <Typography>- Saya bahagia saat bermain sepeda</Typography>
         </Grid>
       </Grid>
       <Grid container style={{ paddingTop: "8px" }}>
