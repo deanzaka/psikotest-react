@@ -12,6 +12,7 @@ import {
 // import bigFiveLogo from "../../assets/images/BigFive.png";
 import stressLogo from "../../assets/images/StressLogo.png";
 import lonelinessLogo from "../../assets/images/LonelinessLogo.png";
+import storyLogo from "../../assets/images/StoryLogo.png";
 import { makeStyles } from "@material-ui/styles";
 import moment from "moment";
 import hello from "../../assets/images/HelloIllustration.png";
@@ -229,6 +230,28 @@ const List = (props) => {
           </Grid>
         </CardActionArea>
       </Card>
+      <Card className={classes.card}>
+        <CardActionArea onClick={() => history.push("/story")}>
+          <Grid container>
+            <Grid item xs={3}>
+              <CardMedia
+                className={classes.media}
+                image={storyLogo}
+                title="StoryLogo"
+              />
+            </Grid>
+            <Grid item xs={9}>
+              <Typography className={classes.testName}>
+                Live Event Story
+              </Typography>
+              <Typography className={classes.testDetails}>
+                Cerita tentang pengalaman anda.
+              </Typography>
+            </Grid>
+          </Grid>
+        </CardActionArea>
+      </Card>
+      <Typography className={classes.title}></Typography>
       {/* <Typography className={classes.testTitle}>Tes Minat Bakat</Typography>
       <Card className={classes.card}>
         <CardActionArea onClick={() => history.push("/rmib")}>

@@ -170,9 +170,7 @@ const LonelinessForm = (props) => {
       <CssBaseline />
       <AppBar position="relative" color="default" className={classes.box}>
         <Toolbar>
-          <Typography className={classes.headerTitle}>
-            Loneliness Level Test
-          </Typography>
+          <Typography className={classes.headerTitle}>Skala 2</Typography>
         </Toolbar>
       </AppBar>
       <LinearProgress

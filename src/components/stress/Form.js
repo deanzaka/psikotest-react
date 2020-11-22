@@ -170,9 +170,7 @@ const StressForm = (props) => {
       <CssBaseline />
       <AppBar position="relative" color="default" className={classes.box}>
         <Toolbar>
-          <Typography className={classes.headerTitle}>
-            Academic Stress Test
-          </Typography>
+          <Typography className={classes.headerTitle}>Skala 1</Typography>
         </Toolbar>
       </AppBar>
       <LinearProgress

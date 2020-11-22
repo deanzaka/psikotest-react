@@ -17,6 +17,7 @@ import StressIntro from "./components/stress/Intro";
 import StressForm from "./components/stress/Form";
 import LonelinessIntro from "./components/loneliness/Intro";
 import LonelinessForm from "./components/loneliness/Form";
+import StoryForm from "./components/story/Form";
 // import RMIBIntro from "./components/rmib/Intro";
 // import RMIBForm from "./components/rmib/Form";
 
@@ -101,6 +102,11 @@ const App = () => {
                   exact
                   path="/loneliness/form"
                   component={LonelinessForm}
+                ></ProtectedRoute>
+                <ProtectedRoute
+                  exact
+                  path="/story"
+                  component={StoryForm}
                 ></ProtectedRoute>
                 {/* <ProtectedRoute
                   exact

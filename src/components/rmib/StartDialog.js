@@ -60,7 +60,7 @@ const StartDialog = () => {
   return (
     <div className={classes.paper}>
       <Typography className={classes.title}>
-        Apakah anda yakin untuk memulai tes?
+        Apakah anda yakin untuk memulai?
       </Typography>
       <Grid container>
         <Grid item xs={6}>

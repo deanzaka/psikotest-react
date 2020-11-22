@@ -130,7 +130,7 @@ const LonelinessIntro = (props) => {
           </Grid>
         </Toolbar>
       </AppBar>
-      <Typography className={classes.title}>Loneliness Level Test</Typography>
+      <Typography className={classes.title}>Skala 2</Typography>
       <Typography className={classes.paragraph}>
         <b>Introduksi. </b>
         Skala yang bertujuan untuk mengetahui kondisi Anda dengan lingkungan

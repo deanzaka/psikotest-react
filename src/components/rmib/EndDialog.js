@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const StartDialog = (props) => {
+const EndDialog = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
@@ -83,7 +83,7 @@ const StartDialog = (props) => {
     return (
       <div className={classes.paper}>
         <Typography className={classes.title}>
-          Apakah anda yakin untuk mengakhiri tes?
+          Apakah anda yakin untuk mengakhiri?
         </Typography>
         <Grid container>
           <Grid item xs={6}>
@@ -121,4 +121,4 @@ const StartDialog = (props) => {
   }
 };
 
-export default StartDialog;
+export default EndDialog;

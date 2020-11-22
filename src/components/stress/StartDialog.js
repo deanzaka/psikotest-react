@@ -66,8 +66,7 @@ const StartDialog = () => {
         </Typography>
       ) : (
         <Typography className={classes.title}>
-          Apakah anda yakin untuk memulai tes? Anda hanya memiliki satu
-          kesempatan.
+          Apakah anda yakin untuk memulai? Anda hanya memiliki satu kesempatan.
         </Typography>
       )}
       {isExists ? (

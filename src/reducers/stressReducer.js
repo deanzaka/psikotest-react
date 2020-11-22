@@ -1,6 +1,6 @@
 import { stressTypes } from "../actions/types";
 
-let template = JSON.parse(localStorage.getItem("bf-template"));
+let template = JSON.parse(localStorage.getItem("stress-template"));
 const initialState = template
   ? {
       complete: false,

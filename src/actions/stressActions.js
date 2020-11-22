@@ -9,7 +9,7 @@ export const getTemplateAction = () => async (dispatch) => {
   try {
     const template = await getTemplateService();
     localStorage.removeItem("startTime");
-    localStorage.setItem("bf-template", JSON.stringify(template));
+    localStorage.setItem("stress-template", JSON.stringify(template));
     dispatch({ type: stressTypes.STRESS_GET_TEMPLATE, payload: template });
   } catch (err) {
     dispatch({
@@ -26,13 +26,13 @@ export const checkExistsAction = (accessToken) => async (dispatch) => {
 };
 
 export const updateTemplateAction = (template) => (dispatch) => {
-  localStorage.setItem("bf-template", JSON.stringify(template));
+  localStorage.setItem("stress-template", JSON.stringify(template));
   dispatch({ type: stressTypes.STRESS_UPDATE_TEMPLATE, payload: template });
 };
 
 export const submitTemplateAction = async (accessToken, template) => {
   await submitTemplateService(accessToken, template);
-  localStorage.removeItem("bf-template");
+  localStorage.removeItem("stress-template");
   localStorage.removeItem("startTime");
 };
 

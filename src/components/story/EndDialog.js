@@ -4,11 +4,11 @@ import { Typography, Grid, Button, Snackbar } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setEndDialogOpen,
-  submitTemplateAction,
-} from "../../actions/lonelinessActions";
+  submitStoryAction,
+} from "../../actions/storyActions";
 import Alert from "@material-ui/lab/Alert";
 import { useHistory } from "react-router-dom";
-import { lonelinessTypes } from "../../actions/types";
+import { storyTypes } from "../../actions/types";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,22 +35,23 @@ const EndDialog = (props) => {
   const classes = useStyles();
   const history = useHistory();
   const accessToken = useSelector((state) => state.login.user.accessToken);
-  const template = useSelector((state) => state.loneliness.template);
   const [error, setError] = React.useState("");
   const [openError, setOpenError] = React.useState(false);
   const [openThanks, setThanks] = React.useState(false);
 
   const onFinish = async () => {
-    const err = await submitTemplateAction(accessToken, template);
+    const content = localStorage.getItem("story-content");
+    console.log(content);
+    console.log("=====");
+    const err = await submitStoryAction(accessToken, content);
     if (err) {
       setError(err.toString());
     }
-    localStorage.removeItem("startTime");
     setThanks(true);
   };
 
   const onBack = async () => {
-    dispatch({ type: lonelinessTypes.LONELINESS_CLEAR });
+    dispatch({ type: storyTypes.STORY_CLEAR });
     history.push("/");
   };
 

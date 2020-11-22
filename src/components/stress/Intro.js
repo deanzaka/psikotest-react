@@ -129,7 +129,7 @@ const StressIntro = (props) => {
           </Grid>
         </Toolbar>
       </AppBar>
-      <Typography className={classes.title}>Academic Stress Test</Typography>
+      <Typography className={classes.title}>Skala 1</Typography>
       <Typography className={classes.paragraph}>
         <b>Introduksi. </b>
         Skala yang bertujuan untuk mengetahui kondisi Anda di lingkup studi dan

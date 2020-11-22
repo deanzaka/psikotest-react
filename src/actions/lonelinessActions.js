@@ -9,7 +9,7 @@ export const getTemplateAction = () => async (dispatch) => {
   try {
     const template = await getTemplateService();
     localStorage.removeItem("startTime");
-    localStorage.setItem("bf-template", JSON.stringify(template));
+    localStorage.setItem("lone-template", JSON.stringify(template));
     dispatch({
       type: lonelinessTypes.LONELINESS_GET_TEMPLATE,
       payload: template,
@@ -32,7 +32,7 @@ export const checkExistsAction = (accessToken) => async (dispatch) => {
 };
 
 export const updateTemplateAction = (template) => (dispatch) => {
-  localStorage.setItem("bf-template", JSON.stringify(template));
+  localStorage.setItem("lone-template", JSON.stringify(template));
   dispatch({
     type: lonelinessTypes.LONELINESS_UPDATE_TEMPLATE,
     payload: template,
@@ -41,7 +41,7 @@ export const updateTemplateAction = (template) => (dispatch) => {
 
 export const submitTemplateAction = async (accessToken, template) => {
   await submitTemplateService(accessToken, template);
-  localStorage.removeItem("bf-template");
+  localStorage.removeItem("lone-template");
   localStorage.removeItem("startTime");
 };
 
