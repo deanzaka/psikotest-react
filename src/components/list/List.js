@@ -48,6 +48,16 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1.5,
     color: theme.palette.primary.dark,
   },
+  intro: {
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    paddingTop: theme.spacing(2),
+    textAlign: "justify",
+    fontWeight: 500,
+    fontSize: "16px",
+    lineHeight: 1.5,
+    color: "#333333",
+  },
   testTitle: {
     paddingTop: theme.spacing(3),
     paddingLeft: theme.spacing(4),
@@ -146,7 +156,16 @@ const List = (props) => {
           <img classes={classes.hello} src={hello} alt="Hello" />
         </Grid>
       </Grid>
-      <Typography className={classes.title}>Kategori Psikotes</Typography>
+      <Typography className={classes.title}>Introduksi</Typography>
+      <Typography className={classes.intro}>
+        Berikut ini adalah 2 skala psikologi dan life event story yang dapat
+        Anda kerjakan. Skala ini tidak bertujuan untuk menilai anda ke dalam
+        kelompok tertentu. Oleh karena itu, diharapkan untuk menjawab sesuai
+        dengan keadaan atau perasaan Anda pada saat ini. Tidak ada jawaban
+        salah, semua jawaban adalah benar. Hasil jawaban Anda akan dijaga
+        kerahasiannya dan hanya akan digunakan untuk kalangan terbatas oleh
+        Psikolog.
+      </Typography>
       {/* <Typography className={classes.testTitle}>Tes Kepribadian</Typography>
       <Card className={classes.card}>
         <CardActionArea onClick={() => history.push("/big-five")}>
@@ -170,7 +189,6 @@ const List = (props) => {
           </Grid>
         </CardActionArea>
       </Card> */}
-      <Typography className={classes.testTitle}>Tes Stress Akademis</Typography>
       <Card className={classes.card}>
         <CardActionArea onClick={() => history.push("/stress")}>
           <Grid container>
@@ -182,20 +200,15 @@ const List = (props) => {
               />
             </Grid>
             <Grid item xs={9}>
-              <Typography className={classes.testName}>
-                Academic Stress Test
-              </Typography>
+              <Typography className={classes.testName}>Skala 1</Typography>
               <Typography className={classes.testDetails}>
-                Tes Psikologi yang digunakan untuk mengukur 5 faktor utama yang
-                mempengaruhi kepribadian
+                Skala yang bertujuan untuk mengetahui kondisi Anda di lingkup
+                studi dan akademik.
               </Typography>
             </Grid>
           </Grid>
         </CardActionArea>
       </Card>
-      <Typography className={classes.testTitle}>
-        Tes Tingkat Kesepian
-      </Typography>
       <Card className={classes.card}>
         <CardActionArea onClick={() => history.push("/loneliness")}>
           <Grid container>
@@ -207,12 +220,10 @@ const List = (props) => {
               />
             </Grid>
             <Grid item xs={9}>
-              <Typography className={classes.testName}>
-                Loneliness Level Test
-              </Typography>
+              <Typography className={classes.testName}>Skala 2</Typography>
               <Typography className={classes.testDetails}>
-                Tes Psikologi yang digunakan untuk mengukur 5 faktor utama yang
-                mempengaruhi kepribadian
+                Skala yang bertujuan untuk mengetahui kondisi Anda dengan
+                lingkungan sekitar.
               </Typography>
             </Grid>
           </Grid>

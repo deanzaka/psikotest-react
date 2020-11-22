@@ -133,15 +133,14 @@ const LonelinessIntro = (props) => {
       <Typography className={classes.title}>Loneliness Level Test</Typography>
       <Typography className={classes.paragraph}>
         <b>Introduksi. </b>
-        Berikut ini merupakan tes yang dapat memberikan gambaran mengenai
-        kecenderungan kepribadian. Setiap orang memiliki kecenderungan yang
-        berbeda-beda, sehingga tidak ada jawaban yang salah dalam tes ini.
+        Skala yang bertujuan untuk mengetahui kondisi Anda dengan lingkungan
+        sekitar.
       </Typography>
       <Typography className={classes.paragraph}>
         <b>Petunjuk Pengerjaan. </b>
         Baca dengan seksama setiap pernyataan dan pilihlah yang paling
         menggambarkan dan sesuai dengan diri Anda dengan memilih salah satu dari
-        pilihan jawaban yang tersedia pada setiap nomornya.
+        pilihan jawaban yang tersedia pada setiap nomornya hingga selesai.
       </Typography>
       <Typography className={classes.legendTitle}>Keterangan Simbol</Typography>
       <Grid container style={{ paddingTop: "8px" }}>
