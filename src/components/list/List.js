@@ -112,7 +112,7 @@ const List = (props) => {
   const classes = useStyles();
   const { history } = props;
   const user = useSelector((state) => state.login.user);
-  const accessToken = user.accessToken;
+  const { accessToken } = JSON.parse(localStorage.getItem("user"));
 
   const getGreetingTime = (m) => {
     let g = null;

@@ -97,10 +97,10 @@ const useStyles = makeStyles((theme) => ({
 const StressIntro = (props) => {
   const { promiseInProgress } = usePromiseTracker();
   const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.login.user.accessToken);
   const startDialogOpen = useSelector((state) => state.stress.startDialogOpen);
   const classes = useStyles();
   const { history } = props;
+  const { accessToken } = JSON.parse(localStorage.getItem("user"));
 
   const onOpenDialog = async () => {
     await trackPromise(dispatch(checkExistsAction(accessToken)));

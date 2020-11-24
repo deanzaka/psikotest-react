@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import { Typography, Grid, Button, Snackbar, Modal } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   setEndDialogOpen,
   submitStoryAction,
@@ -37,10 +37,10 @@ const EndDialog = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
-  const accessToken = useSelector((state) => state.login.user.accessToken);
   const [error, setError] = React.useState("");
   const [openError, setOpenError] = React.useState(false);
   const [openThanks, setThanks] = React.useState(false);
+  const { accessToken } = JSON.parse(localStorage.getItem("user"));
 
   const onFinish = async () => {
     const content = localStorage.getItem("story-content");

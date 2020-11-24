@@ -82,6 +82,7 @@ const Profile = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.login.user);
+  const { accessToken } = JSON.parse(localStorage.getItem("user"));
 
   const [name, setName] = React.useState(user.name ? user.name : "");
   const [errName, setErrName] = React.useState("");
@@ -162,9 +163,7 @@ const Profile = (props) => {
       setErrBirthDate("Harap masukkan tanggal lahir");
     }
     if (!gender) {
-      console.log(gender);
       setErrGender("Harap masukkan jenis kelamin");
-      console.log(errGender);
       return;
     }
     if (!education) {
@@ -190,7 +189,7 @@ const Profile = (props) => {
           gender: gender,
           education: education,
           occupation: occupation,
-          accessToken: user.accessToken,
+          accessToken: accessToken,
         })
       )
     );

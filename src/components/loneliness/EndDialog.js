@@ -37,11 +37,11 @@ const EndDialog = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
-  const accessToken = useSelector((state) => state.login.user.accessToken);
   const template = useSelector((state) => state.loneliness.template);
   const [error, setError] = React.useState("");
   const [openError, setOpenError] = React.useState(false);
   const [openThanks, setThanks] = React.useState(false);
+  const { accessToken } = JSON.parse(localStorage.getItem("user"));
 
   const onFinish = async () => {
     const err = await trackPromise(submitTemplateAction(accessToken, template));
