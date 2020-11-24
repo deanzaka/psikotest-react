@@ -141,7 +141,7 @@ const StoryIntro = (props) => {
       </AppBar>
       <Typography className={classes.paragraph}>
         <b>Introduksi. </b>
-        Saat ini Anda berada di masa-masa studi di negara Jepang. Hal ini
+        Saat ini Anda berada di masa-masa studi di luar negeri. Hal ini
         memberikan pengalaman tersendiri yang mana ada masa menyenangkan dan
         kurang menyenangkan sehingga membuat Anda mengalami gejolak emosi yang
         bermacam-macam. Anda dapat menceritakan pengalaman-pengalaman tersebut

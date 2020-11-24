@@ -254,7 +254,7 @@ const List = (props) => {
             </Grid>
             <Grid item xs={9}>
               <Typography className={classes.testName}>
-                Live Event Story
+                Life Event Story
               </Typography>
               <Typography className={classes.testDetails}>
                 Cerita tentang pengalaman anda.
